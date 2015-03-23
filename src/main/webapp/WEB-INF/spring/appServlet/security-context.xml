@@ -27,13 +27,13 @@
     </http>
 
     <beans:bean id="authenticationSuccessHandler"
-                class="com.parallelbrains.baselayout.security.AuthenticationSuccessHandler"/>
+                class="uk.ac.le.security.AuthenticationSuccessHandler"/>
     <beans:bean id="authenticationFailureHandler"
-                class="com.parallelbrains.baselayout.security.AuthenticationFailureHandler"/>
+                class="uk.ac.le.security.AuthenticationFailureHandler"/>
 
-    <context:component-scan base-package="com.parallelbrains.baselayout.repository"/>
-    <context:component-scan base-package="com.parallelbrains.baselayout.service"/>
-    <context:component-scan base-package="com.parallelbrains.baselayout.security"/>
+    <context:component-scan base-package="uk.ac.le.repository"/>
+    <context:component-scan base-package="uk.ac.le.service"/>
+    <context:component-scan base-package="uk.ac.le.security"/>
 
     <authentication-manager>
         <authentication-provider user-service-ref="userDetailsService">

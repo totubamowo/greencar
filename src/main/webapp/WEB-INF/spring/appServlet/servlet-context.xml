@@ -17,7 +17,7 @@
     <tx:annotation-driven />
 
     <!-- Lets Spring know where to find components (via annotations) -->
-    <context:component-scan base-package="com.parallelbrains.baselayout" />
+    <context:component-scan base-package="uk.ac.le" />
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
