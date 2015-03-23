@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
-@Entity(name = "project_user")
+@Entity(name = "users")
 public class User extends BaseModel {
 
     @Column(nullable = false, unique = true)

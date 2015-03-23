@@ -3,8 +3,8 @@ package uk.ac.le.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
-@Entity
-public class Person extends BaseModel {
+@Entity(name = "journeys")
+public class Journey extends BaseModel {
 
 	@Column
 	private String firstName;
@@ -12,10 +12,10 @@ public class Person extends BaseModel {
 	@Column
 	private String lastName;
 
-	public Person() {
+	public Journey() {
 	}
 
-	public Person(String firstName, String lastName) {
+	public Journey(String firstName, String lastName) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;

@@ -28,24 +28,24 @@ public class RouteConfig {
     public static final String LOGIN_VIEW = "login";
 
     /**
-     * Person
+     * Journey
      */
     // Base View Mapping
-    public static final String PERSON_BASE_MAPPING = "/person";
+    public static final String JOURNEY_BASE_MAPPING = "/journey";
     public static final String USER_BASE_MAPPING = "/user";
 
     // Sub View Mappings
-    public static final String PERSON_EDIT = "edit"; // GET, POST
-    public static final String PERSON_LIST = "list"; // GET
-    public static final String PERSON_DELETE = "delete";
+    public static final String JOURNEY_EDIT = "edit"; // GET, POST
+    public static final String JOURNEY_LIST = "list"; // GET
+    public static final String JOURNEY_DELETE = "delete";
 
     public static final String USER_EDIT = "edit"; // GET, POST
     public static final String USER_LIST = "list"; // GET
     public static final String USER_DELETE = "delete";
 
     // Views
-    public static final String PERSON_EDIT_VIEW = "edit";
-    public static final String PERSON_LIST_VIEW = "list";
+    public static final String JOURNEY_EDIT_VIEW = "edit";
+    public static final String JOURNEY_LIST_VIEW = "list";
 
     public static final String USER_EDIT_VIEW = "edit";
     public static final String USER_LIST_VIEW = "list";
@@ -53,8 +53,8 @@ public class RouteConfig {
     // API Mappings
     public static final String BASE_API_URL = "/api";
 
-    public static final String PERSON_API_BASE_URL = "/people"; // GET, POST
-    public static final String PERSON_API_SINGLE_PERSON_URL = "/{id}"; // GET, PUT, DELETE
+    public static final String JOURNEY_API_BASE_URL = "/journeys"; // GET, POST
+    public static final String JOURNEY_API_SINGLE_JOURNEY_URL = "/{id}"; // GET, PUT, DELETE
 
     public static final String USER_API_BASE_URL = "/users"; // GET, POST
     public static final String USER_API_SINGLE_PERSON_URL = "/{id}"; // GET, PUT, DELETE

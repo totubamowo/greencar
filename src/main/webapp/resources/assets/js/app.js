@@ -38,72 +38,72 @@ var ContactView = Backbone.View.extend({
 var contactView = new ContactView();
 
 
-var People = Backbone.Collection.extend({
-    url: '/api/people'
+var Journeys = Backbone.Collection.extend({
+    url: '/api/journeys'
 });
 
-var Person = Backbone.Model.extend({
-    urlRoot: '/api/people'
-});
-
-var PersonListView = Backbone.View.extend({
+var JourneyListView = Backbone.View.extend({
     el: '.page',
     render: function () {
         var that = this;
-        var people = new People();
-        people.fetch({
-            success: function (people) {
-                var template = _.template($('#person-list-template').html(), {people: people.models});
+        var journeys = new Journeys();
+        journeys.fetch({
+            success: function (journey) {
+                var template = _.template($('#journey-list-template').html(), {journeys: journeys.models});
                 that.$el.html(template);
             }
         })
     }
 });
 
-var personListView = new PersonListView();
+var journeyListView = new JourneyListView();
 
 
-var PersonEditView = Backbone.View.extend({
+var Journey = Backbone.Model.extend({
+    urlRoot: '/api/journeys'
+});
+
+var JourneyEditView = Backbone.View.extend({
     el: '.page',
     events: {
-        'submit .edit-person-form': 'savePerson',
-        'click .delete': 'deletePerson'
+        'submit .edit-journey-form': 'saveJourney',
+        'click .delete': 'deleteJourney'
     },
-    savePerson: function (ev) {
-        var personDetails = $(ev.currentTarget).serializeObject();
-        var person = new Person();
-        person.save(personDetails, {
-            success: function (person) {
-                router.navigate('people', {trigger:true});
+    saveJourney: function (ev) {
+        var journeyDetails = $(ev.currentTarget).serializeObject();
+        var journey = new Journey();
+        journey.save(journeyDetails, {
+            success: function (journey) {
+                router.navigate('journeys', {trigger:true});
             }
         });
         return false;
     },
-    deletePerson: function (ev) {
-        this.person.destroy({
+    deleteJourney: function (ev) {
+        this.journey.destroy({
             success: function () {
-                router.navigate('people', {trigger:true});
+                router.navigate('journeys', {trigger:true});
             }
         })
     },
     render: function (options) {
         var that = this;
         if(options.id) {
-            that.person = new Person({id: options.id});
-            that.person.fetch({
-                success: function (person) {
-                    var template = _.template($('#edit-person-template').html(), {person: person});
+            that.journey = new Journey({id: options.id});
+            that.journey.fetch({
+                success: function (journey) {
+                    var template = _.template($('#edit-journey-template').html(), {journey: journey});
                     that.$el.html(template);
                 }
             })
         } else {
-            var template = _.template($('#edit-person-template').html(), {person: null});
+            var template = _.template($('#edit-journey-template').html(), {journey: null});
             that.$el.html(template);
         }
     }
 });
 
-var personEditView = new PersonEditView();
+var journeyEditView = new JourneyEditView();
 
 
 var Users = Backbone.Collection.extend({
@@ -179,9 +179,9 @@ var userEditView = new UserEditView();
 var Router = Backbone.Router.extend({
     routes: {
         "": "home",
-        "people": "people",
-        "people/edit/:id": "editPerson",
-        "people/new": "editPerson",
+        "journeys": "journeys",
+        "journeys/edit/:id": "editJourney",
+        "journeys/new": "editJourney",
         "about": "about",
         "contact": "contact"
     }
@@ -192,11 +192,11 @@ var router = new Router;
 router.on('route:home', function() {
     homepageView.render();
 })
-router.on('route:people', function() {
-    personListView.render();
+router.on('route:journeys', function() {
+    journeyListView.render();
 })
-router.on('route:editPerson', function(id) {
-    personEditView.render({id: id});
+router.on('route:editJourney', function(id) {
+    journeyEditView.render({id: id});
 })
 router.on('route:about', function() {
     aboutView.render();

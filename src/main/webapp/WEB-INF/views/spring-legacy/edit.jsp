@@ -46,8 +46,8 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Secure Area <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li class="dropdown-header">People</li>
-                        <li><a href="person/list">People List</a></li>
+                        <li class="dropdown-header">Journeys</li>
+                        <li><a href="journey/list">Journeys List</a></li>
                     </ul>
                 </li>
             </ul>
@@ -68,10 +68,10 @@
 <div class="container">
 
     <h1>
-        Person ${person.id} ${person.firstName} ${person.lastName}
+        Journey ${journey.id} ${journey.firstName} ${journey.lastName}
     </h1>
 
-    <form:form commandName="person" style="padding:8px">
+    <form:form commandName="journey" style="padding:8px">
 
 
         <div class="form-group">

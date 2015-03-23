@@ -39,7 +39,7 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="#people">People</a></li>
+                <li><a href="#journeys">Journeys</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li class="dropdown">
@@ -156,11 +156,11 @@
 
 </script>
 
-<script type="text/template" id="person-list-template">
+<script type="text/template" id="journey-list-template">
 
     <div class="container">
 
-        <h1>People</h1>
+        <h1>Journeys</h1>
 
         <div class="table-responsive">
             <table class="table table-hover table-striped">
@@ -173,53 +173,53 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <@ _.each(people, function(person) { @>
+                    <@ _.each(journeys, function(journey) { @>
                         <tr>
-                            <td><@= person.id @></td>
-                            <td><@= htmlEncode(person.get('firstName')) @></td>
-                            <td><@= htmlEncode(person.get('lastName')) @></td>
-                            <td><a href="#people/edit/<@= person.id @>" class="btn btn-info btn-xs">Edit</a></td>
+                            <td><@= journey.id @></td>
+                            <td><@= htmlEncode(journey.get('firstName')) @></td>
+                            <td><@= htmlEncode(journey.get('lastName')) @></td>
+                            <td><a href="#journeys/edit/<@= journey.id @>" class="btn btn-info btn-xs">Edit</a></td>
                         </tr>
                     <@ }); @>
                 </tbody>
             </table>
         </div>
 
-        <a href="#people/new" class="btn btn-primary">New person</a>
+        <a href="#journeys/new" class="btn btn-primary">New journey</a>
 
     </div>
 
 </script>
 
 
-<script type="text/template" id="edit-person-template">
+<script type="text/template" id="edit-journey-template">
     <div class="container">
-        <form class="edit-person-form">
+        <form class="edit-journey-form">
 
-            <h1><@= person ? 'Edit' : 'New' @> Person</h1>
+            <h1><@= journey ? 'Edit' : 'New' @> Journey</h1>
 
-            <input name="id" id="personId" type="hidden" value="<@= person ? person.get('id') : '' @>">
+            <input name="id" id="journeyId" type="hidden" value="<@= journey ? journey.get('id') : '' @>">
 
             <div class="form-group">
                 <label for="firstName">First Name</label>
-                <input name="firstName" id="firstName" type="text" class="form-control" value="<@= person ? person.get('firstName') : '' @>">
+                <input name="firstName" id="firstName" type="text" class="form-control" value="<@= journey ? journey.get('firstName') : '' @>">
             </div>
 
             <div class="form-group">
                 <label for="lastName">Last Name</label>
-                <input name="lastName" id="lastName" type="text" class="form-control" value="<@= person ? person.get('lastName') : '' @>">
+                <input name="lastName" id="lastName" type="text" class="form-control" value="<@= journey ? journey.get('lastName') : '' @>">
             </div>
 
             <hr />
 
-            <button type="submit" class="btn btn-primary"><@= person ? 'Update' : 'Create' @></button>
+            <button type="submit" class="btn btn-primary"><@= journey ? 'Update' : 'Create' @></button>
 
         </form>
 
-        <@ if(person) { @>
+        <@ if(journey) { @>
             <br/>
-            <input type="hidden" name="id" value="<@= person.id @>" />
-            <button data-person-id="<@= person.id @>" class="btn btn-danger delete">Delete</button>
+            <input type="hidden" name="id" value="<@= journey.id @>" />
+            <button data-journey-id="<@= journey.id @>" class="btn btn-danger delete">Delete</button>
         <@ }; @>
     </div>
 </script>

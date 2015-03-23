@@ -1,8 +1,8 @@
 package uk.ac.le.controller.api;
 
 import uk.ac.le.config.RouteConfig;
-import uk.ac.le.model.Person;
-import uk.ac.le.service.PersonManager;
+import uk.ac.le.model.Journey;
+import uk.ac.le.service.JourneyManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,54 +18,54 @@ import java.util.List;
  * todo find a way to test API endpoints
  */
 @Controller
-@RequestMapping(value = RouteConfig.BASE_API_URL  + RouteConfig.PERSON_API_BASE_URL)
-public class PersonAPIController extends BaseAPIController {
+@RequestMapping(value = RouteConfig.BASE_API_URL  + RouteConfig.JOURNEY_API_BASE_URL)
+public class JourneyAPIController extends BaseAPIController {
 
     @Autowired
-    private PersonManager personManager;
+    private JourneyManager journeyManager;
 
     @ResponseBody
     @RequestMapping(method = RequestMethod.GET,
             produces = "application/json")
-    public List<Person> getPeople() throws Exception {
-        return personManager.getAll();
+    public List<Journey> getJourney() throws Exception {
+        return journeyManager.getAll();
     }
 
     @ResponseBody
-    @RequestMapping(value = RouteConfig.PERSON_API_SINGLE_PERSON_URL,
+    @RequestMapping(value = RouteConfig.JOURNEY_API_SINGLE_JOURNEY_URL,
             method = RequestMethod.GET,
             produces = "application/json")
-    public Person getPerson(@PathVariable Long id) throws Exception {
-        return personManager.get(id);
+    public Journey getJourney(@PathVariable Long id) throws Exception {
+        return journeyManager.get(id);
     }
 
     @ResponseBody
-    @RequestMapping(value = RouteConfig.PERSON_API_SINGLE_PERSON_URL,
+    @RequestMapping(value = RouteConfig.JOURNEY_API_SINGLE_JOURNEY_URL,
             method = RequestMethod.PUT,
             produces = "application/json")
-    public Person updatePerson(@RequestBody Person personWithNewValues) throws Exception {
-        personManager.save(personWithNewValues);
+    public Journey updateJourney(@RequestBody Journey journeyWithNewValues) throws Exception {
+        journeyManager.save(journeyWithNewValues);
 
-        return personWithNewValues;
+        return journeyWithNewValues;
     }
 
     @ResponseBody
     @RequestMapping(method = RequestMethod.PUT,
             produces = "application/json")
-    public Person savePerson(@RequestBody Person person, HttpServletResponse response) throws Exception {
-        personManager.save(person);
-        return person;
+    public Journey savePerson(@RequestBody Journey journey, HttpServletResponse response) throws Exception {
+        journeyManager.save(journey);
+        return journey;
     }
 
     @ResponseBody
-    @RequestMapping(value = RouteConfig.PERSON_API_SINGLE_PERSON_URL,
+    @RequestMapping(value = RouteConfig.JOURNEY_API_SINGLE_JOURNEY_URL,
             method = RequestMethod.DELETE,
             produces = "application/json")
-    public Person deletePerson(@PathVariable Long id, HttpServletResponse response) throws Exception {
-        personManager.delete(id);
+    public Journey deleteJourney(@PathVariable Long id, HttpServletResponse response) throws Exception {
+        journeyManager.delete(id);
 
         // todo to trigger success() function of backbone upon deletion i needed to return something..
-        return new Person();
+        return new Journey();
     }
 
 }

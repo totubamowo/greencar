@@ -68,7 +68,7 @@
 <div class="container">
 
     <h1>
-        Person ${person.id} ${person.firstName} ${person.lastName}
+        Journey ${journey.id} ${journey.firstName} ${journey.lastName}
     </h1>
 
     <form:form commandName="user" style="padding:8px">

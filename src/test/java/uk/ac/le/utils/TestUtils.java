@@ -1,16 +1,16 @@
 package uk.ac.le.utils;
 
-import uk.ac.le.model.Person;
+import uk.ac.le.model.Journey;
 import uk.ac.le.model.User;
 
 public class TestUtils {
 
-    public static Person getAPersonObject() {
-        Person person = new Person();
-        person.setFirstName("Ayrton");
-        person.setLastName("Senna");
+    public static Journey getAJourneyObject() {
+        Journey journey = new Journey();
+        journey.setFirstName("Ayrton");
+        journey.setLastName("Senna");
 
-        return person;
+        return journey;
     }
 
     public static User getAUserObject() {

@@ -26,7 +26,7 @@ public class UserManagerImpl implements UserManager {
 
     private PasswordEncoder passwordEncoder;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PersonManagerImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserManagerImpl.class);
 
     public UserManagerImpl() {
         this.passwordEncoder = new BCryptPasswordEncoder();
