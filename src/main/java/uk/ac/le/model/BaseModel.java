@@ -8,9 +8,6 @@ import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * todo set deleted,created and updated nullable=false
- */
 @MappedSuperclass
 public abstract class BaseModel implements Serializable, Comparable<BaseModel> {
 

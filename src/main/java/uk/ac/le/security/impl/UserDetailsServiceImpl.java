@@ -32,8 +32,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         /**
          * Allow the test account, else check if the user's entered password with the password in database
          */
-        if (username.equalsIgnoreCase("guest")) {
-            user = new org.springframework.security.core.userdetails.User("guest", "pass", roles);
+        if (username.equalsIgnoreCase("admin")) {
+            roles.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+            user = new org.springframework.security.core.userdetails.User("admin", "65e84be33532fb784c48129675f9eff3a682b27168c0ea744b2cf58ee02337c5", roles);
         } else {
             user = new org.springframework.security.core.userdetails.User(userInDatabase.getUsername(),
                     userInDatabase.getPassword(), roles);

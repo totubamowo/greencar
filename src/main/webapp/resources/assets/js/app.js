@@ -13,19 +13,6 @@ var HomepageView = Backbone.View.extend({
 
 var homepageView = new HomepageView();
 
-
-var AboutView = Backbone.View.extend({
-    el: '.page',
-    render: function () {
-        var that = this;
-        var template = _.template($('#about').html(), {});
-        that.$el.html(template);
-    }
-});
-
-var aboutView = new AboutView();
-
-
 var ContactView = Backbone.View.extend({
     el: '.page',
     render: function () {
@@ -182,8 +169,9 @@ var Router = Backbone.Router.extend({
         "journeys": "journeys",
         "journeys/edit/:id": "editJourney",
         "journeys/new": "editJourney",
-        "about": "about",
-        "contact": "contact"
+        "contact": "contact",
+        "users": "users",
+        "users/edit/:id": "editUser"
     }
 });
 

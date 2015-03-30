@@ -7,19 +7,21 @@ public class TestUtils {
 
     public static Journey getAJourneyObject() {
         Journey journey = new Journey();
-        journey.setFirstName("Ayrton");
-        journey.setLastName("Senna");
+        journey.setFirstName("Taiwo");
+        journey.setLastName("Moreno");
+        journey.setRole("driver");
+        journey.setUser(getAUserObject());
 
         return journey;
     }
 
     public static User getAUserObject() {
         User user = new User();
-        user.setUsername("deniz@parallelbrains.com");
-        user.setEmail("deniz@parallelbrains.com");
-        user.setPassword("birdistheword");
-        user.setFirstName("Deniz");
-        user.setLastName("Ozger");
+        user.setUsername("teerex_");
+        user.setEmail("teerex_@email.com");
+        user.setPassword("qwerty");
+        user.setFirstName("Test");
+        user.setLastName("Moreno");
 
         return user;
     }

@@ -52,7 +52,7 @@ public class JourneyAPIController extends BaseAPIController {
     @ResponseBody
     @RequestMapping(method = RequestMethod.PUT,
             produces = "application/json")
-    public Journey savePerson(@RequestBody Journey journey, HttpServletResponse response) throws Exception {
+    public Journey saveJourney(@RequestBody Journey journey, HttpServletResponse response) throws Exception {
         journeyManager.save(journey);
         return journey;
     }

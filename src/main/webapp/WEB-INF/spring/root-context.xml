@@ -7,7 +7,6 @@
 
     <import resource="db.xml" />
 
-    <!-- todo maybe move to resources folder and address with classpath:blah?. or, maybe not..-->
     <import resource="appServlet/security-context.xml" />
 
 </beans>

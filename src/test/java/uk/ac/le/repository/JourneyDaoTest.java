@@ -1,6 +1,7 @@
 package uk.ac.le.repository;
 
 import uk.ac.le.model.Journey;
+import uk.ac.le.model.User;
 import uk.ac.le.utils.TestUtils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,9 @@ public class JourneyDaoTest extends BaseDaoTest {
 
 	@Autowired
 	private JourneyDao journeyDao;
+
+    @Autowired
+    private UserDao userDao;
 
 	@Test
 	public void saveAJourney() {
@@ -33,6 +37,17 @@ public class JourneyDaoTest extends BaseDaoTest {
 
         assertNotNull(savedJourney);
 	}
+
+    @Test
+    public void getAJourneyUser() {
+        Journey journey = TestUtils.getAJourneyObject();
+
+        journeyDao.save(journey);
+
+        User savedUser = userDao.get(journey.getUser().getId());
+
+        assertEquals(journey.getUser(), savedUser);
+    }
 
     @Test
 	public void listJourneys() {

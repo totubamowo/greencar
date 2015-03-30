@@ -58,11 +58,11 @@ public class JourneyController extends BaseController {
 
         ModelAndView modelAndView = new ModelAndView();
 
-        List<Journey> journey = journeyManager.getAll();
+        List<Journey> journeys = journeyManager.getAll();
 
-        LOGGER.debug("Journey Listing count = " + journey.size());
+        LOGGER.debug("Journey Listing count = " + journeys.size());
 
-        modelAndView.addObject("journey", journey);
+        modelAndView.addObject("journeys", journeys);
         modelAndView.setViewName(RouteConfig.JOURNEY_LIST_VIEW);
 
         org.springframework.security.core.userdetails.User loggedInUser = userManager.getLoggedInUser();

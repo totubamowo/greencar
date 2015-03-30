@@ -44,11 +44,11 @@ public class RouteConfig {
     public static final String USER_DELETE = "delete";
 
     // Views
-    public static final String JOURNEY_EDIT_VIEW = "edit";
-    public static final String JOURNEY_LIST_VIEW = "list";
+    public static final String JOURNEY_EDIT_VIEW = "journey/edit";
+    public static final String JOURNEY_LIST_VIEW = "journey/list";
 
-    public static final String USER_EDIT_VIEW = "edit";
-    public static final String USER_LIST_VIEW = "list";
+    public static final String USER_EDIT_VIEW = "user/edit";
+    public static final String USER_LIST_VIEW = "user/list";
 
     // API Mappings
     public static final String BASE_API_URL = "/api";

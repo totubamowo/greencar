@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../resources/assets/img/favicon.ico">
 
-    <title>ParallelBrains baselayout</title>
+    <title>GreenCar</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../../resources/assets/css/dist/bootstrap.css" rel="stylesheet">
@@ -35,56 +35,45 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Baselayout</a>
+            <a class="navbar-brand" href="/#">GreenCar@UoL</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li class="active"><a href="/#journeys">Journeys</a></li>
+                <li><a href="/#contact">Contact</a></li>
+                <li><a href="#users">Users</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Secure Area <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li class="dropdown-header">Users</li>
-                        <li><a href="user/list">Users List</a></li>
+                        <li class="dropdown-header">${loggedInUserName}</li>
+                        <li><a href="list">Users List</a></li>
+                        <li><a href="/j_spring_security_logout">Logout</a></li>
                     </ul>
                 </li>
             </ul>
-            <!-- todo Disabled the login form until we decide on how to show/hide it -->
-            <%--<form name="f" action="process-login" method="POST"  class="navbar-form navbar-right">--%>
-            <%--<div class="form-group">--%>
-            <%--<input name="username" type="text" placeholder="Username" class="form-control">--%>
-            <%--</div>--%>
-            <%--<div class="form-group">--%>
-            <%--<input name="password" type="password" placeholder="Password" class="form-control">--%>
-            <%--</div>--%>
-            <%--<button type="submit" class="btn btn-success">Sign in</button>--%>
-            <%--</form>--%>
         </div><!--/.navbar-collapse -->
     </div>
 </div>
 
 <div class="container">
 
-    <h1>User list</h1>
+    <h1>Journeys list</h1>
 
     <div class="table-responsive">
         <table class="table table-hover">
             <thead>
             <tr>
                 <th>ID</th>
-                <th>Username</th>
                 <th>First Name</th>
                 <th>Last Name</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${users}" var="v_user">
+            <c:forEach items="${journeys}" var="v_journey">
                 <tr>
-                    <td><a href="edit?id=${v_user.id}">${v_user.id}</a></td>
-                    <td>${v_user.username}</td>
-                    <td>${v_user.firstName}</td>
-                    <td>${v_user.lastName}</td>
+                    <td><a href="edit?id=${v_journey.id}">${v_journey.id}</a></td>
+                    <td>${v_journey.firstName}</td>
+                    <td>${v_journey.lastName}</td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -95,19 +84,10 @@
     <br/>
 
     <form action="edit">
-        <button type="submit" class="btn btn-primary">Add User</button>
+        <button type="submit" class="btn btn-primary">Add Journey</button>
     </form>
 
     <br/>
-
-    <div class=" text-right">
-        <p class="text-muted">You are logged in as ${loggedInUserName}</p>
-
-        <form action="/j_spring_security_logout">
-            <button type="submit" class="btn btn-warning">Logout</button>
-        </form>
-    </div>
-
 
 </div>
 
@@ -120,6 +100,3 @@
 
 </body>
 </html>
-
-
-

@@ -1,7 +1,6 @@
 package uk.ac.le.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity(name = "journeys")
 public class Journey extends BaseModel {
@@ -11,6 +10,13 @@ public class Journey extends BaseModel {
 
 	@Column
 	private String lastName;
+
+    @Column
+    private String role;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
 
 	public Journey() {
 	}
@@ -36,6 +42,22 @@ public class Journey extends BaseModel {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user){
+        this.user = user;
+    }
 
 	@Override
 	public String toString() {

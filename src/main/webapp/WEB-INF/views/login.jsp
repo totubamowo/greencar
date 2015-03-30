@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../resources/assets/img/favicon.ico">
 
-    <title>Login to Baselayout</title>
+    <title>GreenCar</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../../resources/assets/css/dist/bootstrap.css" rel="stylesheet">
@@ -40,7 +40,7 @@
     </form>
 
     <form name="register" action="process-register" method="POST" class="form-signin">
-        <h2 class="form-signin-heading">New to Baselayout?</h2>
+        <h2 class="form-signin-heading">New to GreenCar?</h2>
         <c:if test="${fn:length(registerErrorMessage) > 0}">
             <div class="alert alert-danger"><strong>Oh snap!</strong> ${registerErrorMessage}</div>
         </c:if>
