@@ -13,11 +13,11 @@
     <http pattern="/resources/**" security="none"/>
     <http pattern="/login" security="none"/>
 
-    <http auto-config='true' use-expressions="true">
+    <http auto-config='true'>
         <!-- Intercept-URLs will be evaluated in the order listed and the first match will be used. So you must put the most specific matches at the top. -->
-        <!--<intercept-url pattern="/**" access="permitAll" />-->
         <intercept-url pattern="/journey/**" access="ROLE_USER"/>
-        <intercept-url pattern="/user/**" access="ROLE_ADMIN"/>
+        <intercept-url pattern="/user/edit/**" access="ROLE_USER"/>
+        <intercept-url pattern="/user/list/**" access="ROLE_ADMIN"/>
 
         <logout/>
 

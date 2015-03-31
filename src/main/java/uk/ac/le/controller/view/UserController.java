@@ -1,5 +1,6 @@
 package uk.ac.le.controller.view;
 
+import org.springframework.web.bind.annotation.*;
 import uk.ac.le.config.RouteConfig;
 import uk.ac.le.model.User;
 import uk.ac.le.service.UserManager;
@@ -7,10 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -32,6 +29,20 @@ public class UserController extends BaseController {
         modelAndView.setViewName(RouteConfig.USER_EDIT_VIEW);
 
         User user = userManager.get(id);
+
+        modelAndView.addObject("user", user == null ? new User() : user);
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/{username}", method = RequestMethod.GET)
+    public ModelAndView editUser(@PathVariable String username) {
+        LOGGER.debug("Received request to edit user : " + username);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName(RouteConfig.USER_EDIT_VIEW);
+
+        User user = userManager.get(username);
 
         modelAndView.addObject("user", user == null ? new User() : user);
 

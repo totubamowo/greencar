@@ -1,6 +1,7 @@
 package uk.ac.le.service.impl;
 
 import uk.ac.le.model.Journey;
+import uk.ac.le.model.User;
 import uk.ac.le.repository.JourneyDao;
 import uk.ac.le.service.JourneyManager;
 import org.slf4j.Logger;
@@ -25,9 +26,9 @@ public class JourneyManagerImpl implements JourneyManager {
         return journeyDao.get(id);
     }
 
-    public List<Journey> getAll() {
-        return journeyDao.getAll();
-    }
+    public List<Journey> getAll() { return journeyDao.getAll(); }
+
+    public List<Journey> getAll(User user) { return journeyDao.getAll(user); }
 
     public void save(Journey journey) {
         journeyDao.save(journey);

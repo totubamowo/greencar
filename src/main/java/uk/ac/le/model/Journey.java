@@ -5,50 +5,50 @@ import javax.persistence.*;
 @Entity(name = "journeys")
 public class Journey extends BaseModel {
 
-	@Column
-	private String firstName;
-
-	@Column
-	private String lastName;
+    @Column
+	private String source;
 
     @Column
-    private String role;
+	private String sink;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @Column
+    private boolean isDriver;
+
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
 	public Journey() {
 	}
 
-	public Journey(String firstName, String lastName) {
+	public Journey(String source, String sink) {
 		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.source = source;
+		this.sink = sink;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getSource() {
+		return source;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setSource(String source) {
+		this.source = source;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public String getSink() {
+		return sink;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setSink(String sink) {
+		this.sink = sink;
 	}
 
-    public String getRole() {
-        return role;
+    public boolean isDriver() {
+        return isDriver;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setDriver(boolean isDriver) {
+        this.isDriver = isDriver;
     }
 
     public User getUser() {
@@ -61,7 +61,7 @@ public class Journey extends BaseModel {
 
 	@Override
 	public String toString() {
-		return super.toString() + " name = " + firstName + " " + lastName
+		return super.toString() + " source = " + source + " sink = " + sink
 				+ " id = " + getId();
 	}
 }

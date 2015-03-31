@@ -7,10 +7,9 @@ public class TestUtils {
 
     public static Journey getAJourneyObject() {
         Journey journey = new Journey();
-        journey.setFirstName("Taiwo");
-        journey.setLastName("Moreno");
-        journey.setRole("driver");
-        journey.setUser(getAUserObject());
+        journey.setSource("LE55HL");
+        journey.setSink("LE17RH");
+        journey.setDriver(true);
 
         return journey;
     }

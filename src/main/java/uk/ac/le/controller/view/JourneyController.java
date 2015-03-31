@@ -1,5 +1,6 @@
 package uk.ac.le.controller.view;
 
+import org.springframework.web.bind.annotation.*;
 import uk.ac.le.config.RouteConfig;
 import uk.ac.le.model.Journey;
 import uk.ac.le.service.JourneyManager;
@@ -8,10 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -39,12 +36,20 @@ public class JourneyController extends BaseController {
 
         modelAndView.addObject("journey", journey == null ? new Journey() : journey);
 
+        org.springframework.security.core.userdetails.User loggedInUser = userManager.getLoggedInUser();
+
+        if (loggedInUser != null) {
+            modelAndView.addObject("loggedInUserName", userManager.getLoggedInUser().getUsername());
+        }
+
         return modelAndView;
     }
 
     @RequestMapping(value = RouteConfig.JOURNEY_EDIT, method = RequestMethod.POST)
     public String saveJourney(@ModelAttribute Journey journey) {
         LOGGER.debug("Received postback on journey " + journey);
+
+        journey.setUser(userManager.get(userManager.getLoggedInUser().getUsername()));
 
         journeyManager.save(journey);
 
@@ -71,7 +76,30 @@ public class JourneyController extends BaseController {
             modelAndView.addObject("loggedInUserName", userManager.getLoggedInUser().getUsername());
         }
 
-        userManager.getLoggedInUser();
+        return modelAndView;
+    }
+
+    @RequestMapping(value = RouteConfig.JOURNEY_LIST + "/{user}", method = RequestMethod.GET)
+    public ModelAndView myJourneyList(@PathVariable String user) {
+        LOGGER.debug("Received request to list journeys for user : " + user);
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        List<Journey> journeys = null;
+
+        org.springframework.security.core.userdetails.User loggedInUser = userManager.getLoggedInUser();
+
+        if (loggedInUser != null) {
+            journeys = journeyManager.getAll(userManager.get(loggedInUser.getUsername()));
+            modelAndView.addObject("loggedInUserName", userManager.getLoggedInUser().getUsername());
+
+            modelAndView.addObject("journeys", journeys);
+
+        }
+
+        modelAndView.setViewName(RouteConfig.JOURNEY_LIST_VIEW);
+
+        LOGGER.debug("Journey Listing count = " + journeys.size());
 
         return modelAndView;
     }

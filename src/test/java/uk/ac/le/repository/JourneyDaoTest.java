@@ -12,23 +12,23 @@ import static org.junit.Assert.*;
 
 public class JourneyDaoTest extends BaseDaoTest {
 
-	@Autowired
-	private JourneyDao journeyDao;
+    @Autowired
+    private JourneyDao journeyDao;
 
     @Autowired
     private UserDao userDao;
 
-	@Test
-	public void saveAJourney() {
+    @Test
+    public void saveAJourney() {
         Journey journey = TestUtils.getAJourneyObject();
 
         journeyDao.save(journey);
 
-		assertNotNull(journey.getId());
-	}
+        assertNotNull(journey.getId());
+    }
 
-	@Test
-	public void getAJourney() {
+    @Test
+    public void getAJourney() {
         Journey journey = TestUtils.getAJourneyObject();
 
         journeyDao.save(journey);
@@ -36,7 +36,7 @@ public class JourneyDaoTest extends BaseDaoTest {
         Journey savedJourney = journeyDao.get(journey.getId());
 
         assertNotNull(savedJourney);
-	}
+    }
 
     @Test
     public void getAJourneyUser() {
@@ -44,21 +44,44 @@ public class JourneyDaoTest extends BaseDaoTest {
 
         journeyDao.save(journey);
 
+        User user = TestUtils.getAUserObject();
+
+        userDao.save(user);
+
+        journey.setUser(user);
+
         User savedUser = userDao.get(journey.getUser().getId());
 
         assertEquals(journey.getUser(), savedUser);
     }
 
     @Test
-	public void listJourneys() {
+    public void listJourneys() {
         Journey journey = TestUtils.getAJourneyObject();
 
         journeyDao.save(journey);
 
-		List<Journey> journeys = journeyDao.getAll();
+        List<Journey> journeys = journeyDao.getAll();
 
-		assertEquals(1, journeys.size());
-	}
+        assertEquals(1, journeys.size());
+    }
+
+    @Test
+    public void listUserJourneys() {
+        Journey journey = TestUtils.getAJourneyObject();
+
+        journeyDao.save(journey);
+
+        User user = TestUtils.getAUserObject();
+
+        userDao.save(user);
+
+        journey.setUser(user);
+
+        List<Journey> journeys = journeyDao.getAll(user);
+
+        assertEquals(1, journeys.size());
+    }
 
     @Test
     public void deleteAJourney() {

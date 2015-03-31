@@ -2,97 +2,80 @@
 <%@ page session="false" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="shortcut icon" href="../../../resources/assets/img/favicon.ico">
-
-    <title>GreenCar</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="../../../resources/assets/css/dist/bootstrap.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="../../../resources/assets/css/dist/jumbotron.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="../../resources/assets/js/libs/html5shiv.js"></script>
-    <script src="../../resources/assets/js/libs/respond.min.js"></script>
-    <![endif]-->
-</head>
-
-<body>
-
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">GreenCar@UoL</a>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#journey">Journey</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="#users">Users</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Secure Area <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li class="dropdown-header">Users</li>
-                        <li><a href="user/list">Users List</a></li>
-                        <li><a href="/j_spring_security_logout">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-        <!--/.navbar-collapse -->
-    </div>
-</div>
+<%@include file='../header.jsp' %>
 
 <div class="container">
+    <style>
+        .custom-control {
+            width: 80%;
+            display: inline;
+        }
 
-    <h1>
-        Journey ${journey.id} ${journey.firstName} ${journey.lastName}
-    </h1>
+        .select-control {
+            width: 10%;
+            display: inline;
+        }
+    </style>
 
-    <form:form commandName="journey" style="padding:8px">
+    <div class="col-sm-4">
+        <form:form commandName="journey" style="padding:8px">
 
-        <div class="form-group">
-            <label for="firstname">First Name</label>
-            <form:input path="firstName" cssClass="form-control" id="firstname"/>
-        </div>
-        <div class="form-group">
-            <label for="lastname">Last Name</label>
-            <form:input path="lastName" cssClass="form-control" id="lastname"/>
-        </div>
 
-        <button type="submit" class="btn btn-primary">Save</button>
+            <h3>${null != journey.id ? 'Update' : 'Create' } Journey</h3>
 
-    </form:form>
+            <div class="form-group">
+                <label for="source">From</label><br>
+                <form:input path="source" cssClass="form-control custom-control" id="source" required="required"
+                            placeholder="origin postcode"/>
+                <input type="radio" name="pointType" id="from-select" value="s"
+                       class="select-control" title="click to select origin on map"><label
+                    for="from-select"><i class="fa fa-hand-o-right"></i></label>
+            </div>
 
-    <form:form commandName="journey" action="/journey/delete" style="padding:8px">
-        <form:hidden path="id"/>
-        <button type="submit" class="btn btn-danger delete">Delete</button>
-    </form:form>
+            <div class="form-group">
+                <label for="sink">To</label><br>
+                <form:input path="sink" cssClass="form-control custom-control" id="sink" required="required"
+                            placeholder="destination postcode"/>
+                <input type="radio" name="pointType" id="to-select" value="t" class="select-control" checked="checked"
+                       title="click to select destination on map"><label for="to-select"><i
+                    class="fa fa-hand-o-right"></i></label>
+            </div>
+
+            <button type="button" id="route-btn" class=" btn btn-sm btn-default pull-right">Route</button>
+
+            <div class="clearfix"></div>
+
+            <div class="form-group">
+                <form:radiobutton id="driver" path="driver"
+                                  value="true"/><label for="driver">&nbsp;Driver</label>
+                <br>
+                <form:radiobutton id="rider" path="driver"
+                                  value="false"/><label for="rider">&nbsp;Rider</label>
+            </div>
+
+            <hr/>
+
+            <button type="submit" class="btn btn-primary">${null != journey.id ? 'Update' : 'Create' }</button>
+
+        </form:form>
+        <c:if test="${null != journey.id}">
+            <form:form commandName="journey" method="delete" action="/journey/delete" style="padding:8px">
+                <form:hidden path="id"/>
+                <button type="submit" class="btn btn-danger delete"
+                        onclick="return confirm('Are you sure you want to delete this journey?');">Delete
+                </button>
+            </form:form>
+        </c:if>
+    </div>
+
+    <div class="col-sm-8">
+        <div id="map"></div>
+        <form id="toggle-roads-form" class="btn pull-right">
+            <input type="checkbox" id="toggle-roads" name="value" checked>
+            <label for="toggle-roads">Roads</label>
+        </form>
+    </div>
 
 </div>
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="../../resources/assets/js/libs/jquery.js"></script>
-<script src="../../resources/assets/js/libs/bootstrap.min.js"></script>
-
-</body>
-</html>
-
-
+<%@include file='../footer.jsp' %>

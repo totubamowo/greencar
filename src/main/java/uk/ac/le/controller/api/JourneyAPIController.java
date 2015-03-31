@@ -64,7 +64,6 @@ public class JourneyAPIController extends BaseAPIController {
     public Journey deleteJourney(@PathVariable Long id, HttpServletResponse response) throws Exception {
         journeyManager.delete(id);
 
-        // todo to trigger success() function of backbone upon deletion i needed to return something..
         return new Journey();
     }
 
