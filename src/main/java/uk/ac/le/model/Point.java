@@ -1,48 +1,42 @@
 package uk.ac.le.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-
-@Entity(name = "points")
 public class Point extends BaseModel {
 
-    @Column(nullable = false)
-    private double x;
+    private double lon;
 
-    @Column(nullable = false)
-    private double y;
+    private double lat;
 
     public Point() {
         super();
     }
 
-    public Point(double x, double y) {
-        this.setX(x);
-        this.setY(y);
+    public Point(double lon, double lat) {
+        this.setLon(lon);
+        this.setLat(lat);
     }
 
-    public double getX() {
-        return x;
+    public double getLon() {
+        return lon;
     }
 
-    public void setX(double x) {
-        this.x = x;
+    public void setLon(double lon) {
+        this.lon = lon;
     }
 
-    public double getY() {
-        return y;
+    public double getLat() {
+        return lat;
     }
 
-    public void setY(double y) {
-        this.y = y;
+    public void setLat(double lat) {
+        this.lat = lat;
     }
 
-    public void set(double x, double y) {
-        this.setX(x);
-        this.setY(y);
+    public void set(double lon, double lat) {
+        this.setLon(lon);
+        this.setLat(lat);
     }
 
     public final boolean equals(Point b) {
-        return this.x == b.x && this.y == y;
+        return this.lon == b.lon && this.lat == lat;
     }
 }

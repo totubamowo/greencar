@@ -1,28 +1,33 @@
+// Utility method for converting HTML form to JavaScript Objects
+$.fn.serializeObject = function () {
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function () {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};
+
 // config options
 var url = 'http://127.0.0.1:8080/geoserver/greencar/wms';
 var clientSRID = 'EPSG:3857';
 var serverSRID = 'EPSG:4326';
 var serverType = 'geoserver';
 var lei = [-126874.25213773156, 6916497.341662836];
-var zoom = 12;
+var zoom = 15;
 
 try {
     // Create an openLayer map object
     var map = new ol.Map({
         // Map control set up
-        /*controls: ol.control.defaults().extend([
-         new app.LayersControl({
-         groups: {
-         background: {
-         title: 'Base Layers',
-         exclusive: true
-         },
-         'default': {
-         title: 'Overlays'
-         }
-         }
-         })
-         ]),*/
+        /*controls: ol.control.defaults().extend([new app.LayersControl({groups: {background: {title: 'Base Layers',exclusive: true},'default': {title: 'Overlays'}}})]),*/
 
         // render the map in the 'map' div
         target: document.getElementById('map'),
@@ -78,7 +83,8 @@ var roads = new ol.layer.Tile({
         url: url,
         params: {'LAYERS': 'greencar:roads'},
         serverType: serverType
-    })
+    }),
+    visible: false
 });
 
 // Add roads to map layer
@@ -89,12 +95,12 @@ var route = undefined;
 
 // Source marker stroke
 var sourceStroke = new ol.style.Stroke({
-    color: 'rgb(0,0,255)',
+    color: 'rgba(0,0,255,0.5)',
     width: 5.00
 });
 // Sink marker stroke
 var sinkStroke = new ol.style.Stroke({
-    color: 'rgb(255,0,0)',
+    color: 'rgba(255,0,0,0.5)',
     width: 5.00
 });
 
@@ -134,6 +140,13 @@ var vectorLayer = new ol.layer.Vector({
 });
 map.addLayer(vectorLayer);
 
+var sourceField = $("#source");
+var sinkField = $("#sink");
+
+var routeDescription = $('#routeDescription');
+var totalDistance = $('#totalDistance');
+
+
 // Utility function for converting coordinates from EPSG:3857 to EPSG:4326.
 var transform = ol.proj.getTransform(clientSRID, serverSRID);
 // Utility function for converting coordinates from EPSG:4326 to EPSG:3857.
@@ -151,7 +164,7 @@ var computeRoute = function (sourcePoint, sinkPoint) {
     ];
 
     var params = new Object();
-    params.LAYERS = 'greencar:ref_route';
+    params.LAYERS = 'greencar:shortest_path';
     params.FORMAT = 'image/png';
     params.viewparams = viewparams.join(';');
 
@@ -166,27 +179,33 @@ var computeRoute = function (sourcePoint, sinkPoint) {
 
     // Add route to layer
     map.addLayer(route);
-}
 
-// Utility method for converting HTML form to JavaScript Objects
-$.fn.serializeObject = function () {
-    var o = {};
-    var a = this.serializeArray();
-    $.each(a, function () {
-        if (o[this.name] !== undefined) {
-            if (!o[this.name].push) {
-                o[this.name] = [o[this.name]];
+    // Driving distance in km
+    var totalDistance_ = 0.00;
+    // Table rows for directions
+    var rows = '';
+
+    //get driving directions
+    $.getJSON('/route/shortest-path?sourceLon=' + sourceCoord[0] + '&sourceLat=' + sourceCoord[1] + '&sinkLon=' + sinkCoord[0] + '&sinkLat=' + sinkCoord[1],
+        function (data) {
+            if (null !== data) {
+                data.forEach(function (entry) {
+                    rows += '<tr>';
+                    rows += '<td>' + entry.name + '</td><td>' + entry.heading.toFixed(2) + '&#176;</td><td>' + (entry.cost * 112120).toFixed(2) + '</td>';
+                    rows += '</tr>';
+                    totalDistance_ += entry.cost;
+                });
+                totalDistance_ = (totalDistance_ * 112.12).toFixed(2);
+                totalDistance.html(totalDistance_ + '&nbsp;km');
+                routeDescription.append($.parseHTML(rows));
             }
-            o[this.name].push(this.value || '');
-        } else {
-            o[this.name] = this.value || '';
+        }).fail(function (data) {
+            alert(data.responseText);
+            totalDistance.html(totalDistance_ + '&nbsp;km');
+            routeDescription.append($.parseHTML(rows));
         }
-    });
-    return o;
-};
-
-var sourceField = $("#source");
-var sinkField = $("#sink");
+    );
+}
 
 var triggerPoints = function () {
     sourceField.change();
@@ -197,6 +216,16 @@ var clearRoute = function () {
     // Remove the route layers in map
     if (route !== undefined)
         map.removeLayer(route);
+    totalDistance.html('');
+    routeDescription.html('');
+}
+
+var toggleRoads = function () {
+    var checked = $('#toggle-roads-form').serializeObject();
+    if (checked.value == 'on')
+        roads.setVisible(true);
+    else
+        roads.setVisible(false);
 }
 
 var flyToLei = function () {
@@ -263,15 +292,18 @@ sourceField.change(function () {
     var postcode = $(this).val();
     postcode = $.trim(postcode);
     if (postcode.length >= 5) {
-        $.getJSON('http://api.postcodes.io/postcodes/' + postcode, function (data) {
-            source.setGeometry(new ol.geom.Point(transform_([data.result.longitude, data.result.latitude])));
-            if (sink.getGeometry() !== undefined) {
-                clearRoute();
-                computeRoute(source.getGeometry().getCoordinates(), sink.getGeometry().getCoordinates());
+        $.getJSON('http://api.postcodes.io/postcodes/' + postcode,
+            function (data) {
+                source.setGeometry(new ol.geom.Point(transform_([data.result.longitude, data.result.latitude])));
+                if (sink.getGeometry() !== undefined) {
+                    clearRoute();
+                    computeRoute(source.getGeometry().getCoordinates(), sink.getGeometry().getCoordinates());
+                }
+                sourceField.removeClass('error');
+            }).fail(function () {
+                sourceField.addClass('error');
             }
-        }).fail(function () {
-            sourceField.addClass('error');
-        });
+        );
     }
 });
 
@@ -279,30 +311,26 @@ sinkField.change(function () {
     var postcode = $(this).val();
     postcode = $.trim(postcode);
     if (postcode.length >= 5) {
-        $.getJSON('http://api.postcodes.io/postcodes/' + postcode, function (data) {
-            sink.setGeometry(new ol.geom.Point(transform_([data.result.longitude, data.result.latitude])));
-            if (source.getGeometry() !== undefined) {
-                clearRoute();
-                computeRoute(source.getGeometry().getCoordinates(), sink.getGeometry().getCoordinates());
+        $.getJSON('http://api.postcodes.io/postcodes/' + postcode,
+            function (data) {
+                sink.setGeometry(new ol.geom.Point(transform_([data.result.longitude, data.result.latitude])));
+                if (source.getGeometry() !== undefined) {
+                    clearRoute();
+                    computeRoute(source.getGeometry().getCoordinates(), sink.getGeometry().getCoordinates());
+                }
+                sinkField.removeClass('error');
+            }).fail(function () {
+                sinkField.addClass('error');
             }
-        }).fail(function () {
-            sinkField.addClass('error');
-        });
+        );
     }
 });
 
+// Call triggerPoints to compute route
 $(document).ready(triggerPoints);
-
-$("#route-btn").click(triggerPoints);
 
 $('#clear-route').click(clearRoute);
 
-$('#toggle-roads').click(function () {
-    var checked = $('#toggle-roads-form').serializeObject();
-    if (checked.value == 'on')
-        roads.setVisible(true);
-    else
-        roads.setVisible(false);
-});
+$('#toggle-roads').click(toggleRoads);
 
 $('#fly-to-lei').click(flyToLei);

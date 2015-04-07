@@ -6,75 +6,123 @@
 
 <div class="container">
     <style>
-        .custom-control {
-            width: 80%;
+        body {
+            overflow: hidden;
+        }
+
+        form#journey {
             display: inline;
         }
 
-        .select-control {
-            width: 10%;
-            display: inline;
+        form .error{
+            border-color: #ff0000;
+        }
+
+        #journey-control, #map {
+            height: 450px;
+        }
+
+        #journey-control {
+            background-color: rgba(0, 0, 0, .25);
+            position: fixed;
+            z-index: 9999;
+            overflow-y: scroll;
+            padding: 10px 10px;
+        }
+
+        #journey-control-inner {
+            padding: 5px 10px;
+            font-size: smaller;
+            background-color: rgba(255, 255, 255, 1);
+            border-radius: 10px;
+            min-height: 100%;
+        }
+
+        #map {
+            padding: 0px;
+        }
+
+        .ol-zoom.ol-unselectable.ol-control {
+            margin-left: 96%;
         }
     </style>
 
-    <div class="col-sm-4">
-        <form:form commandName="journey" style="padding:8px">
+    <br>
 
+    <div class="col-sm-4 col-md-4 col-lg-3" id="journey-control">
+        <div id="journey-control-inner">
+            <h4>${null != journey.id ? 'Update' : 'Create' } Journey</h4>
+            <form:form commandName="journey" class="form-inline">
 
-            <h3>${null != journey.id ? 'Update' : 'Create' } Journey</h3>
+                <div class="form-group">
+                    <form:radiobutton id="driver" path="driver"
+                                      value="true"/><label for="driver">&nbsp;Driver</label>
+                    <form:radiobutton id="rider" path="driver"
+                                      value="false"/><label for="rider">&nbsp;Rider</label>
+                </div>
 
-            <div class="form-group">
-                <label for="source">From</label><br>
-                <form:input path="source" cssClass="form-control custom-control" id="source" required="required"
-                            placeholder="origin postcode"/>
-                <input type="radio" name="pointType" id="from-select" value="s"
-                       class="select-control" title="click to select origin on map"><label
-                    for="from-select"><i class="fa fa-hand-o-right"></i></label>
-            </div>
+                <hr/>
 
-            <div class="form-group">
-                <label for="sink">To</label><br>
-                <form:input path="sink" cssClass="form-control custom-control" id="sink" required="required"
-                            placeholder="destination postcode"/>
-                <input type="radio" name="pointType" id="to-select" value="t" class="select-control" checked="checked"
-                       title="click to select destination on map"><label for="to-select"><i
-                    class="fa fa-hand-o-right"></i></label>
-            </div>
+                <div class="form-group">
+                    <label class="label-control" for="source">From: </label>
+                    <form:input path="source" cssClass="input-control" id="source" required="required"
+                                placeholder="origin postcode"/>
+                    <input type="radio" name="pointType" id="from-select" value="s"
+                           title="click to select origin on map"><label
+                        for="from-select"><i class="fa fa-hand-o-right"></i></label>
+                </div>
 
-            <button type="button" id="route-btn" class=" btn btn-sm btn-default pull-right">Route</button>
+                <div class="clearfix"></div>
 
-            <div class="clearfix"></div>
+                <div class="form-group">
+                    <label for="sink" class="label-control">To:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <form:input path="sink" cssClass="input-control" id="sink" required="required"
+                                placeholder="destination postcode"/>
+                    <input type="radio" name="pointType" id="to-select" value="t" checked="checked"
+                           title="click to select destination on map"><label for="to-select"><i
+                        class="fa fa-hand-o-right"></i></label>
+                </div>
 
-            <div class="form-group">
-                <form:radiobutton id="driver" path="driver"
-                                  value="true"/><label for="driver">&nbsp;Driver</label>
-                <br>
-                <form:radiobutton id="rider" path="driver"
-                                  value="false"/><label for="rider">&nbsp;Rider</label>
-            </div>
+                <hr/>
 
-            <hr/>
-
-            <button type="submit" class="btn btn-primary">${null != journey.id ? 'Update' : 'Create' }</button>
-
-        </form:form>
-        <c:if test="${null != journey.id}">
-            <form:form commandName="journey" method="delete" action="/journey/delete" style="padding:8px">
-                <form:hidden path="id"/>
-                <button type="submit" class="btn btn-danger delete"
-                        onclick="return confirm('Are you sure you want to delete this journey?');">Delete
-                </button>
+                <button type="submit"
+                        class="btn btn-sm btn-primary">${null != journey.id ? 'Update' : 'Create' }</button>
             </form:form>
-        </c:if>
+
+            <c:if test="${null != journey.id}">
+                <form:form commandName="journey" method="delete" action="/journey/delete" class="form-inline">
+                    <form:hidden path="id"/>
+                    <button type="submit" class="btn btn-sm btn-danger delete"
+                            onclick="return confirm('Are you sure you want to delete this journey?');">Delete
+                    </button>
+                </form:form>
+            </c:if>
+
+            <hr>
+
+            <label>Total Distance: &nbsp;</label><span id="totalDistance"></span>
+
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Heading</th>
+                        <th>Distance (m)</th>
+                    </tr>
+                    </thead>
+                    <tbody id="routeDescription"></tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
-    <div class="col-sm-8">
-        <div id="map"></div>
-        <form id="toggle-roads-form" class="btn pull-right">
-            <input type="checkbox" id="toggle-roads" name="value" checked>
-            <label for="toggle-roads">Roads</label>
-        </form>
-    </div>
+
+    <div class="col-sm-12 col-md-12 col-lg-12" id="map"></div>
+    <form id="toggle-roads-form" class="btn pull-right">
+        <input type="checkbox" id="toggle-roads" name="value">
+        <label for="toggle-roads">Roads</label>
+    </form>
 
 </div>
 
