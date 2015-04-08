@@ -19,14 +19,11 @@ import java.util.List;
 @Transactional(propagation = Propagation.MANDATORY)
 public class JourneyDaoImpl extends BaseDao<Journey> implements JourneyDao {
 
-    private Class<Journey> clazz
-            = (Class<Journey>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-
     public List<Journey> getAll(User user) {
         CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
-        CriteriaQuery<Journey> criteria = builder.createQuery(clazz);
+        CriteriaQuery<Journey> criteria = builder.createQuery(Journey.class);
 
-        Root<Journey> tRoot = criteria.from(clazz);
+        Root<Journey> tRoot = criteria.from(Journey.class);
 
         List<Predicate> wherePredicates = new ArrayList<Predicate>();
         wherePredicates.add(builder.equal(tRoot.get("user"), user));
@@ -36,4 +33,22 @@ public class JourneyDaoImpl extends BaseDao<Journey> implements JourneyDao {
 
         return getEntityManager().createQuery(criteria).getResultList();
     }
+
+    public List<Journey> getAll(Journey journey) {
+        CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<Journey> criteria = builder.createQuery(Journey.class);
+
+        Root<Journey> tRoot = criteria.from(Journey.class);
+
+        List<Predicate> wherePredicates = new ArrayList<Predicate>();
+        User u = journey.getUser();
+        wherePredicates.add(builder.notEqual(tRoot.get("user"), u));
+        wherePredicates.add(builder.equal(tRoot.get("deleted"), false));
+        wherePredicates.add(builder.notEqual(tRoot.get("isDriver"), journey.isDriver()));
+
+        buildWhereClause(criteria, wherePredicates);
+        
+        return getEntityManager().createQuery(criteria).getResultList();
+    }
+
 }

@@ -45,6 +45,30 @@ public class JourneyController extends BaseController {
         return modelAndView;
     }
 
+
+    @RequestMapping(value = "view", method = RequestMethod.GET)
+    public ModelAndView viewJourney(@RequestParam(value = "id", required = true) Long id) {
+        LOGGER.debug("Received request to view journey id : " + id);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName(RouteConfig.JOURNEY_VIEW_VIEW);
+
+        Journey journey = journeyManager.get(id);
+
+        modelAndView.addObject("journey", journey == null ? new Journey() : journey);
+
+        List<Journey> journeys = journeyManager.getAll(journey);
+        modelAndView.addObject("journeys", journeys);
+
+        org.springframework.security.core.userdetails.User loggedInUser = userManager.getLoggedInUser();
+
+        if (loggedInUser != null) {
+            modelAndView.addObject("loggedInUserName", userManager.getLoggedInUser().getUsername());
+        }
+
+        return modelAndView;
+    }
+
     @RequestMapping(value = RouteConfig.JOURNEY_EDIT, method = RequestMethod.POST)
     public String saveJourney(@ModelAttribute Journey journey) {
         LOGGER.debug("Received postback on journey " + journey);

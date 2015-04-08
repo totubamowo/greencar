@@ -26,9 +26,17 @@ public class JourneyManagerImpl implements JourneyManager {
         return journeyDao.get(id);
     }
 
-    public List<Journey> getAll() { return journeyDao.getAll(); }
+    public List<Journey> getAll() {
+        return journeyDao.getAll();
+    }
 
-    public List<Journey> getAll(User user) { return journeyDao.getAll(user); }
+    public List<Journey> getAll(User user) {
+        return journeyDao.getAll(user);
+    }
+
+    public List<Journey> getAll(Journey journey) {
+        return journeyDao.getAll(journey);
+    }
 
     public void save(Journey journey) {
         journeyDao.save(journey);

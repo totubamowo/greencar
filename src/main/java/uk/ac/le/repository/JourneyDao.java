@@ -13,6 +13,8 @@ public interface JourneyDao {
 
     List<Journey> getAll(User user);
 
+    List<Journey> getAll(Journey journey);
+
     void save(Journey journey);
 
     void delete(Long id);

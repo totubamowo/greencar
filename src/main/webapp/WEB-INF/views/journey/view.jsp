@@ -6,7 +6,7 @@
 
 <div class="container">
 
-    <h1>Journeys list</h1>
+    <h1>Journeys view</h1>
 
     <div class="table-responsive">
         <table class="table table-hover">

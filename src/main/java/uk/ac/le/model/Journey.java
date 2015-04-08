@@ -6,10 +6,10 @@ import javax.persistence.*;
 public class Journey extends BaseModel {
 
     @Column
-	private String source;
+    private String source;
 
     @Column
-	private String sink;
+    private String sink;
 
     @Column
     private boolean isDriver;
@@ -18,30 +18,30 @@ public class Journey extends BaseModel {
     @JoinColumn(name = "user_id")
     private User user;
 
-	public Journey() {
-	}
+    public Journey() {
+    }
 
-	public Journey(String source, String sink) {
-		super();
-		this.source = source;
-		this.sink = sink;
-	}
+    public Journey(String source, String sink) {
+        super();
+        this.source = source;
+        this.sink = sink;
+    }
 
-	public String getSource() {
-		return source;
-	}
+    public String getSource() {
+        return source;
+    }
 
-	public void setSource(String source) {
-		this.source = source;
-	}
+    public void setSource(String source) {
+        this.source = source;
+    }
 
-	public String getSink() {
-		return sink;
-	}
+    public String getSink() {
+        return sink;
+    }
 
-	public void setSink(String sink) {
-		this.sink = sink;
-	}
+    public void setSink(String sink) {
+        this.sink = sink;
+    }
 
     public boolean isDriver() {
         return isDriver;
@@ -55,13 +55,14 @@ public class Journey extends BaseModel {
         return user;
     }
 
-    public void setUser(User user){
+    public void setUser(User user) {
         this.user = user;
     }
 
-	@Override
-	public String toString() {
-		return super.toString() + " source = " + source + " sink = " + sink
-				+ " id = " + getId();
-	}
+    @Override
+    public String toString() {
+        String mode = isDriver ? "driver" : "rider";
+        return super.toString() + " source = " + source + " sink = " + sink
+                + " " + mode + " id = " + getId();
+    }
 }

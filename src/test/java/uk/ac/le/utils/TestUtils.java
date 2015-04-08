@@ -10,18 +10,28 @@ public class TestUtils {
         Journey journey = new Journey();
         journey.setSource("LE55HL");
         journey.setSink("LE17RH");
-        journey.setDriver(true);
 
         return journey;
     }
 
+    public static User getAnotherUserObject() {
+        User user = new User();
+        user.setUsername("test_");
+        user.setEmail("test_@email.com");
+        user.setPassword("qwerty");
+        user.setFirstName("Test_");
+        user.setLastName("Spring_");
+
+        return user;
+    }
+
     public static User getAUserObject() {
         User user = new User();
-        user.setUsername("teerex_");
-        user.setEmail("teerex_@email.com");
+        user.setUsername("test");
+        user.setEmail("test@email.com");
         user.setPassword("qwerty");
         user.setFirstName("Test");
-        user.setLastName("Moreno");
+        user.setLastName("Spring");
 
         return user;
     }

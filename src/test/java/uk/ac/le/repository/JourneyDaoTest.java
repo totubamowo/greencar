@@ -40,15 +40,13 @@ public class JourneyDaoTest extends BaseDaoTest {
 
     @Test
     public void getAJourneyUser() {
-        Journey journey = TestUtils.getAJourneyObject();
-
-        journeyDao.save(journey);
-
         User user = TestUtils.getAUserObject();
-
         userDao.save(user);
 
+        Journey journey = TestUtils.getAJourneyObject();
         journey.setUser(user);
+
+        journeyDao.save(journey);
 
         User savedUser = userDao.get(journey.getUser().getId());
 
@@ -68,20 +66,65 @@ public class JourneyDaoTest extends BaseDaoTest {
 
     @Test
     public void listUserJourneys() {
-        Journey journey = TestUtils.getAJourneyObject();
-
-        journeyDao.save(journey);
-
         User user = TestUtils.getAUserObject();
-
         userDao.save(user);
 
+        Journey journey = TestUtils.getAJourneyObject();
         journey.setUser(user);
+
+        journeyDao.save(journey);
 
         List<Journey> journeys = journeyDao.getAll(user);
 
         assertEquals(1, journeys.size());
     }
+
+    @Test
+    public void listJourneysForDriver() {
+        User user = TestUtils.getAUserObject();
+        userDao.save(user);
+
+        Journey journey = TestUtils.getAJourneyObject();
+        journey.setDriver(true);
+        journey.setUser(user);
+        journeyDao.save(journey);
+
+        User user_ = TestUtils.getAnotherUserObject();
+        userDao.save(user_);
+
+        Journey journey_ = TestUtils.getAJourneyObject();
+        journey_.setDriver(false);
+        journey_.setUser(user_);
+        journeyDao.save(journey_);
+
+        List<Journey> journeys = journeyDao.getAll(journey);
+
+        assertEquals(1, journeys.size());
+    }
+
+    @Test
+    public void listJourneysForRider() {
+        User user = TestUtils.getAUserObject();
+        userDao.save(user);
+
+        Journey journey = TestUtils.getAJourneyObject();
+        journey.setDriver(false);
+        journey.setUser(user);
+        journeyDao.save(journey);
+
+        User user_ = TestUtils.getAnotherUserObject();
+        userDao.save(user_);
+
+        Journey journey_ = TestUtils.getAJourneyObject();
+        journey_.setDriver(true);
+        journey_.setUser(user_);
+        journeyDao.save(journey_);
+
+        List<Journey> journeys = journeyDao.getAll(journey);
+
+        assertEquals(1, journeys.size());
+    }
+
 
     @Test
     public void deleteAJourney() {

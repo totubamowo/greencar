@@ -45,6 +45,7 @@ public class RouteConfig {
 
     // Views
     public static final String JOURNEY_EDIT_VIEW = "journey/edit";
+    public static final String JOURNEY_VIEW_VIEW = "journey/view";
     public static final String JOURNEY_LIST_VIEW = "journey/list";
 
     public static final String USER_EDIT_VIEW = "user/edit";
