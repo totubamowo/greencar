@@ -14,7 +14,7 @@
             display: inline;
         }
 
-        form .error{
+        form .error {
             border-color: #ff0000;
         }
 
@@ -67,9 +67,9 @@
                     <label class="label-control" for="source">From: </label>
                     <form:input path="source" cssClass="input-control" id="source" required="required"
                                 placeholder="origin postcode"/>
-                    <input type="radio" name="pointType" id="from-select" value="s"
-                           title="click to select origin on map"><label
-                        for="from-select"><i class="fa fa-hand-o-right"></i></label>
+                    <input type="radio" name="pointType" id="source-select" value="s"
+                           title="click to select origin on map" checked><label
+                        for="source-select"><i class="fa fa-flag-checkered"></i></label>
                 </div>
 
                 <div class="clearfix"></div>
@@ -78,9 +78,9 @@
                     <label for="sink" class="label-control">To:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                     <form:input path="sink" cssClass="input-control" id="sink" required="required"
                                 placeholder="destination postcode"/>
-                    <input type="radio" name="pointType" id="to-select" value="t" checked="checked"
-                           title="click to select destination on map"><label for="to-select"><i
-                        class="fa fa-hand-o-right"></i></label>
+                    <input type="radio" name="pointType" id="sink-select" value="t"
+                           title="click to select destination on map"><label for="sink-select"><i
+                        class="fa fa-flag"></i></label>
                 </div>
 
                 <hr/>

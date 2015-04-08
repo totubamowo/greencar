@@ -141,7 +141,10 @@ var vectorLayer = new ol.layer.Vector({
 map.addLayer(vectorLayer);
 
 var sourceField = $("#source");
+var sourceSelect = $('#source-select');
 var sinkField = $("#sink");
+var sinkSelect = $('#sink-select');
+
 
 var routeDescription = $('#routeDescription');
 var totalDistance = $('#totalDistance');
@@ -200,7 +203,7 @@ var computeRoute = function (sourcePoint, sinkPoint) {
                 routeDescription.append($.parseHTML(rows));
             }
         }).fail(function (data) {
-            alert(data.responseText);
+            alert(data.responseText.split(":")[1].split(".")[0]);
             totalDistance.html(totalDistance_ + '&nbsp;km');
             routeDescription.append($.parseHTML(rows));
         }
@@ -281,11 +284,19 @@ sourceField.keyup(function () {
 sourceField.blur(function () {
     sourceField.change()
 });
+sourceField.focus(function () {
+    sinkSelect.prop('checked', false);
+    sourceSelect.prop('checked', true);
+});
 sinkField.keyup(function () {
     sinkField.change()
 });
 sinkField.blur(function () {
     sinkField.change()
+});
+sinkField.focus(function () {
+    sourceSelect.prop('checked', false);
+    sinkSelect.prop('checked', true);
 });
 
 sourceField.change(function () {
