@@ -52,7 +52,7 @@ public class LoginController extends BaseController {
 
     @RequestMapping(value = RouteConfig.PROCESS_REGISTER, method = RequestMethod.POST)
     public String registerUser(@ModelAttribute User user, HttpServletRequest request,
-                             HttpServletResponse response) {
+                               HttpServletResponse response) {
 
         userManager.save(user);
 
