@@ -22,27 +22,20 @@ public class UserController extends BaseController {
     private UserManager userManager;
 
     @RequestMapping(value = RouteConfig.USER_EDIT, method = RequestMethod.GET)
-    public ModelAndView editUser(@RequestParam(value = "id", required = false) Long id) {
-        LOGGER.debug("Received request to edit user id : " + id);
+    public ModelAndView editUser() {
+        LOGGER.debug("Received request to edit logged in user");
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(RouteConfig.USER_EDIT_VIEW);
 
-        User user = userManager.get(id);
+        org.springframework.security.core.userdetails.User loggedInUser = userManager.getLoggedInUser();
 
-        modelAndView.addObject("user", user == null ? new User() : user);
+        User user = null;
 
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "/{username}", method = RequestMethod.GET)
-    public ModelAndView editUser(@PathVariable String username) {
-        LOGGER.debug("Received request to edit user : " + username);
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName(RouteConfig.USER_EDIT_VIEW);
-
-        User user = userManager.get(username);
+        if (loggedInUser != null) {
+            modelAndView.addObject("loggedInUserName", userManager.getLoggedInUser().getUsername());
+            user = userManager.get(loggedInUser.getUsername());
+        }
 
         modelAndView.addObject("user", user == null ? new User() : user);
 
@@ -55,7 +48,7 @@ public class UserController extends BaseController {
 
         userManager.save(user);
 
-        return redirectTo(RouteConfig.USER_LIST);
+        return redirectTo(RouteConfig.USER_EDIT);
 
     }
 
