@@ -66,67 +66,36 @@
 
         <h1>Journeys</h1>
 
+
         <div class="table-responsive">
             <table class="table table-hover table-striped">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th></th>
-                </tr>
-                </thead>
                 <tbody>
                 <@ _.each(journeys, function(journey) { @>
                 <tr>
-                    <td><@= journey.id @></td>
-                    <td><@= htmlEncode(journey.get('firstName')) @></td>
-                    <td><@= htmlEncode(journey.get('lastName')) @></td>
-                    <td><a href="#journeys/edit/<@= journey.id @>" class="btn btn-info btn-xs">Edit</a></td>
+                    <td>
+                        <div class="col-sm-3">
+                            <img width="150px" src="https://placeimg.com/600/360/any"
+                                 class="img-responsive img-thumbnail">
+                        </div>
+                        <div class="col-sm-9">
+                            <div><strong>Name: </strong><@= htmlEncode(journey.get('user').username) @></div>
+                            <div><strong><@= journey.get('driver') ? 'Driver' : 'Rider' @></strong></div>
+                            <div><strong>From: </strong><@= htmlEncode(journey.get('source')) @></div>
+                            <div><strong>To: </strong><@= htmlEncode(journey.get('sink')) @></div>
+                            <div class="pull-right"><a href="/journey/view?id=<@= journey.id @>"
+                                                       class="btn btn-info btn-xs">Find
+                                out
+                                more</a></div>
+                        </div>
+                    </td>
                 </tr>
                 <@ }); @>
                 </tbody>
             </table>
         </div>
 
-        <a href="#journeys/new" class="btn btn-primary">New journey</a>
-
     </div>
 
-</script>
-
-<script type="text/template" id="edit-journey-template">
-    <div class="container">
-        <form class="edit-journey-form">
-
-            <h1><@= journey ? 'Edit' : 'New' @> Journey</h1>
-
-            <input name="id" id="journeyId" type="hidden" value="<@= journey ? journey.get('id') : '' @>">
-
-            <div class="form-group">
-                <label for="firstName">First Name</label>
-                <input name="firstName" id="firstName" type="text" class="form-control"
-                       value="<@= journey ? journey.get('firstName') : '' @>">
-            </div>
-
-            <div class="form-group">
-                <label for="lastName">Last Name</label>
-                <input name="lastName" id="lastName" type="text" class="form-control"
-                       value="<@= journey ? journey.get('lastName') : '' @>">
-            </div>
-
-            <hr/>
-
-            <button type="submit" class="btn btn-primary"><@= journey ? 'Update' : 'Create' @></button>
-
-        </form>
-
-        <@ if(journey) { @>
-        <br/>
-        <input type="hidden" name="id" value="<@= journey.id @>"/>
-        <button data-journey-id="<@= journey.id @>" class="btn btn-danger delete">Delete</button>
-        <@ }; @>
-    </div>
 </script>
 
 <script type="text/template" id="user-list-template">
@@ -155,15 +124,12 @@
                     <td><@= htmlEncode(user.get('firstName')) @></td>
                     <td><@= htmlEncode(user.get('lastName')) @></td>
                     <td><@= htmlEncode(user.get('email')) @></td>
-                    <td><a href="#users/edit/<@= user.id @>" class="btn btn-info btn-xs">Edit</a></td>
+                    <td><a href="/#users/edit/<@= user.id @>" class="btn btn-info btn-xs">Edit</a></td>
                 </tr>
                 <@ }); @>
                 </tbody>
             </table>
         </div>
-
-        <a href="#users/new" class="btn btn-primary">New user</a>
-
     </div>
 
 </script>
