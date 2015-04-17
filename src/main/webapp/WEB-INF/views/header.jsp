@@ -27,13 +27,6 @@
 
     <script src="/resources/assets/js/vendor/modernizr-2.8.3.min.js"></script>
 
-    <c:if test="${null != journey}">
-        <link rel="stylesheet" href="/resources/assets/js/vendor/ol-v3.2.1/css/ol.css">
-
-        <script src="/resources/assets/js/vendor/ol-v3.2.1/build/ol-debug.js" type="text/javascript"></script>
-    </c:if>
-
-
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="/resources/assets/js/libs/html5shiv.js"></script>
@@ -55,19 +48,17 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right" style="padding-left: 10px;">
                 <li><a href="/#journeys">All Journeys</a></li>
-                <c:if test="${fn:length(loggedInUserName) > 1}">
-                    <li><a href="/journey/list/${loggedInUserName}">My Journeys</a></li>
-                </c:if>
-                <li><a href="/#contact">Contact</a></li>
 
                 <c:if test="${fn:length(loggedInUserName) > 1}">
+                    <li><a href="/journey/list/${loggedInUserName}">My Journeys</a></li>
+
                     <li class="dropdown">
                         <a id="userDrop" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i
                                 class="fa fa-user"></i>&nbsp;&nbsp;${loggedInUserName}<b
                                 class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/user/${loggedInUserName}"
-                                   data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-cog"></i>&nbsp;&nbsp;Settings</a>
+                            <li><a href="/user/edit" data-toggle="collapse" data-target=".navbar-collapse.in"><i
+                                    class="fa fa-cog"></i>&nbsp;&nbsp;Settings</a>
                             </li>
                             <li><a href="<c:url value="/j_spring_security_logout" />" data-toggle="collapse"
                                    data-target=".navbar-collapse.in"><i class="fa fa-sign-out"></i>&nbsp;Logout</a></li>
@@ -75,29 +66,8 @@
                     </li>
                 </c:if>
 
-                <c:if test="${null != journey}">
-                    <li class="dropdown">
-                        <a id="toolsDrop" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i
-                                class="fa fa-globe"></i>&nbsp;&nbsp;Map Control<b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a id="fly-to-lei" href="#" data-toggle="collapse"
-                                   data-target=".navbar-collapse.in"><i
-                                        class="fa fa-home"></i>&nbsp;&nbsp;Go to Leicester</a>
-                            </li>
-                            <li>
-                                <a id="clear-route" href="#" data-toggle="collapse"
-                                   data-target=".navbar-collapse.in"><i class="fa fa-eraser"></i>&nbsp;&nbsp;Clear
-                                    route</a>
-                            </li>
-                            <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in"
-                                   onclick="map.getView().setZoom(3); return false;"><i
-                                    class="fa fa-arrows-alt"></i>&nbsp;&nbsp;Zoom To Full Extent</a></li>
-                        </ul>
-                    </li>
-                </c:if>
+                <li><a href="/#contact">Contact</a></li>
             </ul>
         </div>
-        <!--/.navbar-collapse -->
     </div>
 </div>
