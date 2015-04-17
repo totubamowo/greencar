@@ -77,7 +77,7 @@ public class User extends BaseModel {
     }
 
     public void setNewPassword(String newPassword) {
-        this.newPassword = hash(newPassword);
+        this.newPassword = newPassword;
     }
 
     private static String hash(String message) {
