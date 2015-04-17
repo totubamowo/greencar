@@ -24,7 +24,6 @@ var ContactView = Backbone.View.extend({
 
 var contactView = new ContactView();
 
-
 var Journeys = Backbone.Collection.extend({
     url: '/api/journeys'
 });
@@ -172,6 +171,7 @@ var Router = Backbone.Router.extend({
         "contact": "contact",
         "users": "users",
         "users/edit/:id": "editUser"
+
     }
 });
 
@@ -186,9 +186,6 @@ router.on('route:journeys', function() {
 router.on('route:editJourney', function(id) {
     journeyEditView.render({id: id});
 })
-router.on('route:about', function() {
-    aboutView.render();
-})
 router.on('route:contact', function() {
     contactView.render();
 })
@@ -198,5 +195,6 @@ router.on('route:users', function() {
 router.on('route:editUser', function(id) {
     userEditView.render({id: id});
 })
+
 
 Backbone.history.start();
