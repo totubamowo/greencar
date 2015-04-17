@@ -45,8 +45,7 @@ public class JourneyController extends BaseController {
         return modelAndView;
     }
 
-
-    @RequestMapping(value = "view", method = RequestMethod.GET)
+    @RequestMapping(value = RouteConfig.JOURNEY_VIEW, method = RequestMethod.GET)
     public ModelAndView viewJourney(@RequestParam(value = "id", required = true) Long id) {
         LOGGER.debug("Received request to view journey id : " + id);
 
@@ -56,9 +55,6 @@ public class JourneyController extends BaseController {
         Journey journey = journeyManager.get(id);
 
         modelAndView.addObject("journey", journey == null ? new Journey() : journey);
-
-        List<Journey> journeys = journeyManager.getAll(journey);
-        modelAndView.addObject("journeys", journeys);
 
         org.springframework.security.core.userdetails.User loggedInUser = userManager.getLoggedInUser();
 
@@ -79,6 +75,29 @@ public class JourneyController extends BaseController {
 
         return redirectTo(RouteConfig.JOURNEY_LIST);
 
+    }
+
+    @RequestMapping(value = RouteConfig.JOURNEY_PEER, method = RequestMethod.GET)
+    public ModelAndView peerJourney(@RequestParam(value = "id", required = true) Long id) {
+        LOGGER.debug("Received request to view journey id : " + id);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName(RouteConfig.JOURNEY_PEER_VIEW);
+
+        Journey journey = journeyManager.get(id);
+
+        modelAndView.addObject("journey", journey == null ? new Journey() : journey);
+
+        List<Journey> journeys = journeyManager.getAll(journey);
+        modelAndView.addObject("journeys", journeys);
+
+        org.springframework.security.core.userdetails.User loggedInUser = userManager.getLoggedInUser();
+
+        if (loggedInUser != null) {
+            modelAndView.addObject("loggedInUserName", userManager.getLoggedInUser().getUsername());
+        }
+
+        return modelAndView;
     }
 
     @RequestMapping(value = RouteConfig.JOURNEY_LIST, method = RequestMethod.GET)
