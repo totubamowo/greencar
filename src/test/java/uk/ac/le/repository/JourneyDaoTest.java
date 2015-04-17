@@ -35,7 +35,7 @@ public class JourneyDaoTest extends BaseDaoTest {
 
         Journey savedJourney = journeyDao.get(journey.getId());
 
-        assertNotNull(savedJourney);
+        assertEquals(savedJourney, journey);
     }
 
     @Test
