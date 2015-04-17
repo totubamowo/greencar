@@ -73,7 +73,7 @@ try {
     });
 }
 catch (err) {
-    alert(err + ' Please contact developer');
+    alert(err + '. Please contact developer');
 }
 
 // Set up roads layer
@@ -224,11 +224,11 @@ var clearRoute = function () {
 }
 
 var toggleRoads = function () {
-    var checked = $('#toggle-roads-form').serializeObject();
-    if (checked.value == 'on')
-        roads.setVisible(true);
-    else
-        roads.setVisible(false);
+    roads.setVisible(!roads.getVisible());
+}
+
+var zoomFull = function () {
+    map.getView().setZoom(3);
 }
 
 var flyToLei = function () {
@@ -345,3 +345,5 @@ $('#clear-route').click(clearRoute);
 $('#toggle-roads').click(toggleRoads);
 
 $('#fly-to-lei').click(flyToLei);
+
+$('#zoom-full').click(zoomFull);

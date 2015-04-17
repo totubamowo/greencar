@@ -31,6 +31,7 @@
 
                     <td>
                         <a href="../view?id=${v_journey.id}" class="btn btn-info btn-xs">View</a>
+                        <a href="../peer?id=${v_journey.id}" class="btn btn-info btn-xs">Peer</a>
                         <a href="../edit?id=${v_journey.id}" class="btn btn-info btn-xs">Edit</a>
                     </td>
                 </tr>
@@ -51,3 +52,6 @@
 </div>
 
 <%@include file='../footer.jsp' %>
+
+</body>
+</html>
