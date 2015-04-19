@@ -6,7 +6,12 @@
 
 <div class="container">
 
-    <h1>Journeys view</h1>
+    <h1>Journey peers</h1>
+
+    <p>List of <strong>${journey.driver ? 'riders' : 'drivers'}</strong> for your journey
+        <a href="/journey/view?id=${journey.id}" title="view journey on map">from ${journey.source}
+            to ${journey.sink}</a>
+    </p>
 
     <div class="table-responsive">
         <table class="table table-hover">
