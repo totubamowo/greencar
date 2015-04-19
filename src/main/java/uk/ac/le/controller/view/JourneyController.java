@@ -69,11 +69,17 @@ public class JourneyController extends BaseController {
     public String saveJourney(@ModelAttribute Journey journey) {
         LOGGER.debug("Received postback on journey " + journey);
 
-        journey.setUser(userManager.get(userManager.getLoggedInUser().getUsername()));
+        org.springframework.security.core.userdetails.User loggedInUser = userManager.getLoggedInUser();
+
+        if (loggedInUser != null) {
+            journey.setUser(userManager.get(loggedInUser.getUsername()));
+        } else {
+            journey.setUser(userManager.get(0L));
+        }
 
         journeyManager.save(journey);
 
-        return redirectTo(RouteConfig.JOURNEY_LIST);
+        return redirectTo(RouteConfig.JOURNEY_LIST + "/" + loggedInUser.getUsername());
     }
 
     @RequestMapping(value = RouteConfig.JOURNEY_PEER, method = RequestMethod.GET)
