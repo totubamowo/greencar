@@ -33,7 +33,7 @@ public class UserController extends BaseController {
         User user = null;
 
         if (loggedInUser != null) {
-            modelAndView.addObject("loggedInUserName", userManager.getLoggedInUser().getUsername());
+            modelAndView.addObject("loggedInUserName", loggedInUser.getUsername());
             user = userManager.get(loggedInUser.getUsername());
         }
 
@@ -68,7 +68,7 @@ public class UserController extends BaseController {
         org.springframework.security.core.userdetails.User loggedInUser = userManager.getLoggedInUser();
 
         if (loggedInUser != null) {
-            modelAndView.addObject("loggedInUserName", userManager.getLoggedInUser().getUsername());
+            modelAndView.addObject("loggedInUserName", loggedInUser.getUsername());
         }
 
         userManager.getLoggedInUser();

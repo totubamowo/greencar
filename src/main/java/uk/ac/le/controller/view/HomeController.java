@@ -6,7 +6,6 @@ import uk.ac.le.config.RouteConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import uk.ac.le.service.UserManager;
@@ -34,7 +33,7 @@ public class HomeController {
         org.springframework.security.core.userdetails.User loggedInUser = userManager.getLoggedInUser();
 
         if (loggedInUser != null) {
-            modelAndView.addObject("loggedInUserName", userManager.getLoggedInUser().getUsername());
+            modelAndView.addObject("loggedInUserName", loggedInUser.getUsername());
         }
 
         return modelAndView;

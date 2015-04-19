@@ -39,7 +39,7 @@ public class JourneyController extends BaseController {
         org.springframework.security.core.userdetails.User loggedInUser = userManager.getLoggedInUser();
 
         if (loggedInUser != null) {
-            modelAndView.addObject("loggedInUserName", userManager.getLoggedInUser().getUsername());
+            modelAndView.addObject("loggedInUserName", loggedInUser.getUsername());
         }
 
         return modelAndView;
@@ -59,7 +59,7 @@ public class JourneyController extends BaseController {
         org.springframework.security.core.userdetails.User loggedInUser = userManager.getLoggedInUser();
 
         if (loggedInUser != null) {
-            modelAndView.addObject("loggedInUserName", userManager.getLoggedInUser().getUsername());
+            modelAndView.addObject("loggedInUserName", loggedInUser.getUsername());
         }
 
         return modelAndView;
@@ -74,7 +74,6 @@ public class JourneyController extends BaseController {
         journeyManager.save(journey);
 
         return redirectTo(RouteConfig.JOURNEY_LIST);
-
     }
 
     @RequestMapping(value = RouteConfig.JOURNEY_PEER, method = RequestMethod.GET)
@@ -85,16 +84,17 @@ public class JourneyController extends BaseController {
         modelAndView.setViewName(RouteConfig.JOURNEY_PEER_VIEW);
 
         Journey journey = journeyManager.get(id);
-
         modelAndView.addObject("journey", journey == null ? new Journey() : journey);
 
         List<Journey> journeys = journeyManager.getAll(journey);
+
         modelAndView.addObject("journeys", journeys);
+
 
         org.springframework.security.core.userdetails.User loggedInUser = userManager.getLoggedInUser();
 
         if (loggedInUser != null) {
-            modelAndView.addObject("loggedInUserName", userManager.getLoggedInUser().getUsername());
+            modelAndView.addObject("loggedInUserName", loggedInUser.getUsername());
         }
 
         return modelAndView;
@@ -116,7 +116,7 @@ public class JourneyController extends BaseController {
         org.springframework.security.core.userdetails.User loggedInUser = userManager.getLoggedInUser();
 
         if (loggedInUser != null) {
-            modelAndView.addObject("loggedInUserName", userManager.getLoggedInUser().getUsername());
+            modelAndView.addObject("loggedInUserName", loggedInUser.getUsername());
         }
 
         return modelAndView;
@@ -134,7 +134,7 @@ public class JourneyController extends BaseController {
 
         if (loggedInUser != null) {
             journeys = journeyManager.getAll(userManager.get(loggedInUser.getUsername()));
-            modelAndView.addObject("loggedInUserName", userManager.getLoggedInUser().getUsername());
+            modelAndView.addObject("loggedInUserName", loggedInUser.getUsername());
 
             modelAndView.addObject("journeys", journeys);
 
