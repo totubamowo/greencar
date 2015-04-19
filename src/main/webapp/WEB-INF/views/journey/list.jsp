@@ -23,16 +23,20 @@
             <tbody>
             <c:forEach items="${journeys}" var="v_journey">
                 <tr>
-                    <td><a href="../view?id=${v_journey.id}">${v_journey.id}</a></td>
+                    <td><a href="/journey/view?id=${v_journey.id}">${v_journey.id}</a></td>
                     <td>${v_journey.user.username}</td>
                     <td>${v_journey.driver ? 'Driver' : 'Rider' }</td>
                     <td>${v_journey.source}</td>
                     <td>${v_journey.sink}</td>
 
                     <td>
-                        <a href="../view?id=${v_journey.id}" class="btn btn-info btn-xs">View</a>
-                        <a href="../peer?id=${v_journey.id}" class="btn btn-info btn-xs">Peer</a>
-                        <a href="../edit?id=${v_journey.id}" class="btn btn-info btn-xs">Edit</a>
+                        <a href="/journey/view?id=${v_journey.id}" class="btn btn-info btn-xs">View</a>
+                        <c:if test="${loggedInUserName == v_journey.user.username}">
+                            <a href="/journey/edit?id=${v_journey.id}" class="btn btn-info btn-xs">Edit</a>
+                            <c:if test="${v_journey.driver}">
+                                <a href="/journey/peer?id=${v_journey.id}" class="btn btn-info btn-xs">Peers</a>
+                            </c:if>
+                        </c:if>
                     </td>
                 </tr>
             </c:forEach>
