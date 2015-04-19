@@ -27,6 +27,6 @@ public class RouteAPIController extends BaseAPIController {
                                  @RequestParam(value = "sourceLat", required = true) Double sourceLat,
                                  @RequestParam(value = "sinkLon", required = true) Double sinkLon,
                                  @RequestParam(value = "sinkLat", required = true) Double sinkLat) {
-        return routeManager.getRoutes(new Point(sourceLon, sinkLat), new Point(sinkLon, sinkLat));
+        return routeManager.getRoutes(new Point(sourceLon, sourceLat), new Point(sinkLon, sinkLat));
     }
 }
