@@ -1,6 +1,6 @@
 package uk.ac.le.model;
 
-public class Point extends BaseModel {
+public class Point {
 
     private double lon;
 
