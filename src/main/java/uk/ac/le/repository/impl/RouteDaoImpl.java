@@ -30,6 +30,12 @@ public class RouteDaoImpl implements RouteDao {
         return routes;
     }
 
+    public double getCost(Point source, Point sink) {
+        Double cost = this.jdbcTemplate.queryForObject(
+                "SELECT sum(cost) FROM gcar_shortestpath('roads'," + source.getLon() + "," + source.getLat() + "," + sink.getLon() + "," + sink.getLat() + ")", Double.class);
+        return cost;
+    }
+
     public Object selectRoad(Long gid) {
         String SQL = "SELECT name FROM public.roads WHERE gid = ?";
         Object road = this.jdbcTemplate.queryForObject(SQL, new Object[]{gid},

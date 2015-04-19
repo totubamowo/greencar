@@ -30,6 +30,10 @@ public class RouteManagerImpl implements RouteManager {
         return routeDao.getRoutes(source, sink);
     }
 
+    public double getCost(Point source, Point sink) {
+        return routeDao.getCost(source, sink);
+    }
+
     public Object selectRoad(Long gid) {
         return routeDao.selectRoad(gid);
     }

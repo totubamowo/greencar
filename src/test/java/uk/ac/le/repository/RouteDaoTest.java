@@ -25,6 +25,14 @@ public class RouteDaoTest extends BaseDaoTest {
     }
 
     @Test
+    public void getCost() {
+
+        double cost = routeDao.getCost(TestUtils.source, TestUtils.sink);
+
+        assertEquals(0.022655311988823555, cost, 0.0000001);
+    }
+
+    @Test
     public void selectRoad() {
         assertEquals("Ling Road", routeDao.selectRoad(TestUtils.gid));
     }
