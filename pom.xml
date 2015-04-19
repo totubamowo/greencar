@@ -13,7 +13,7 @@
         <jetty.version>7.0.0.pre5</jetty.version>
         <spring.version>3.2.4.RELEASE</spring.version>
         <slf4j.version>1.7.5</slf4j.version>
-        <java.version>1.5</java.version>
+        <java.version>1.6</java.version>
         <junit.version>4.11</junit.version>
         <aspectj.version>1.7.3</aspectj.version>
         <jackson.version>1.9.13</jackson.version>
@@ -278,6 +278,32 @@
             <artifactId>commons-lang</artifactId>
             <version>20030203.000129</version>
         </dependency>
+
+        <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+            <version>3.1</version>
+        </dependency>
+
+        <!-- Google utils -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.3.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.http-client</groupId>
+            <artifactId>google-http-client</artifactId>
+            <version>1.20.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.http-client</groupId>
+            <artifactId>google-http-client-jackson2</artifactId>
+            <version>1.20.0</version>
+        </dependency>
+
 
     </dependencies>
 
