@@ -63,8 +63,7 @@
 
     <div class="col-sm-4 col-md-4 col-lg-3" id="journey-control">
         <div id="journey-control-inner">
-            <h4>Journey view<a href="" class="btn pull-right"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;back</a></h4>
-
+            <h4>Journey view<a href="<%=request.getHeader("referer")%>" class="btn pull-right"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;back</a></h4>
             <div><strong>Name: </strong>${journey.user.username}</div>
             <div><strong>${journey.driver ? 'Driver' : 'Rider' }</strong></div>
             <div><strong>From: </strong>${journey.source}</div>
