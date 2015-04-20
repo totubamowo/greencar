@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-import uk.ac.le.model.Point;
+import uk.ac.le.utils.Point;
 import uk.ac.le.model.Route;
 import uk.ac.le.repository.RouteDao;
 

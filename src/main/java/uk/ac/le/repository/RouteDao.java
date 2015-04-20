@@ -1,6 +1,6 @@
 package uk.ac.le.repository;
 
-import uk.ac.le.model.Point;
+import uk.ac.le.utils.Point;
 import uk.ac.le.model.Route;
 
 import java.util.List;

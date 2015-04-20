@@ -1,7 +1,6 @@
 package uk.ac.le.utils;
 
 import uk.ac.le.model.Journey;
-import uk.ac.le.model.Point;
 import uk.ac.le.model.User;
 
 public class TestUtils {

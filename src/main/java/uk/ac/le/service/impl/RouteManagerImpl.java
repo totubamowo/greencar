@@ -6,13 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import uk.ac.le.model.Journey;
-import uk.ac.le.model.Point;
+import uk.ac.le.utils.Point;
 import uk.ac.le.model.Route;
-import uk.ac.le.model.User;
-import uk.ac.le.repository.JourneyDao;
 import uk.ac.le.repository.RouteDao;
-import uk.ac.le.service.JourneyManager;
 import uk.ac.le.service.RouteManager;
 
 import java.util.List;
