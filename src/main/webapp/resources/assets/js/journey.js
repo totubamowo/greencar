@@ -93,35 +93,28 @@ map.addLayer(roads);
 // Initialize route layer
 var route = undefined;
 
-// Source marker stroke
-var sourceStroke = new ol.style.Stroke({
-    color: 'rgba(0,0,255,0.5)',
-    width: 5.00
-});
-// Sink marker stroke
-var sinkStroke = new ol.style.Stroke({
-    color: 'rgba(255,0,0,0.5)',
-    width: 5.00
-});
-
 // Styles for source marker
 var sourceStyles = [
     new ol.style.Style({
-        image: new ol.style.Circle({
-            stroke: sourceStroke,
-            radius: 5
-        }),
-        stroke: sourceStroke
+        image: new ol.style.Icon({
+            anchor: [10, 30],
+            anchorXUnits: 'pixels',
+            anchorYUnits: 'pixels',
+            opacity: 0.75,
+            src: '/resources/assets/img/marker-source.png'
+        })
     })
 ];
 // Styles for sink marker
 var sinkStyles = [
     new ol.style.Style({
-        image: new ol.style.Circle({
-            stroke: sinkStroke,
-            radius: 5
-        }),
-        stroke: sinkStroke
+        image: new ol.style.Icon({
+            anchor: [10, 30],
+            anchorXUnits: 'pixels',
+            anchorYUnits: 'pixels',
+            opacity: 0.75,
+            src: '/resources/assets/img/marker-sink.png'
+        })
     })
 ];
 
