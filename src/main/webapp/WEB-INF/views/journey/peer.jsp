@@ -28,14 +28,14 @@
             <tbody>
             <c:forEach items="${journeys}" var="v_journey">
                 <tr>
-                    <td><a href="view?id=${v_journey.id}">${v_journey.id}</a></td>
+                    <td><a href="/journey/view?id=${v_journey.id}">${v_journey.id}</a></td>
                     <td>${v_journey.user.username}</td>
                     <td>${v_journey.driver ? 'Driver' : 'Rider' }</td>
                     <td>${v_journey.source}</td>
                     <td>${v_journey.sink}</td>
 
                     <td>
-                        <a href="view?id=${v_journey.id}" class="btn btn-info btn-xs">View</a>
+                        <a href="/journey/view?id=${v_journey.id}" class="btn btn-info btn-xs">View</a>
                     </td>
                 </tr>
             </c:forEach>
@@ -46,7 +46,7 @@
     <br/>
     <br/>
 
-    <form action="../edit">
+    <form action="/journey/edit">
         <button type="submit" class="btn btn-primary">Add Journey</button>
     </form>
 

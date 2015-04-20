@@ -47,7 +47,7 @@
     <br/>
     <br/>
 
-    <form action="../edit">
+    <form action="/journey/edit">
         <button type="submit" class="btn btn-primary">Add Journey</button>
     </form>
 
