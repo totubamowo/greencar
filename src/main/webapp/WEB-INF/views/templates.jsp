@@ -70,11 +70,11 @@
         <div class="table-responsive">
             <table class="table table-hover table-striped">
                 <tbody>
-                <@ _.each(journeys, function(journey) { @>
+                <@ _.each(journeys, function(journey, index) { @>
                 <tr>
                     <td>
                         <div class="col-sm-3">
-                            <img width="150px" src="https://placeimg.com/600/360/any"
+                            <img width="150px" src="http://lorempixel.com/400/200/sports/<@= index % 10 @>"
                                  class="img-responsive img-thumbnail">
                         </div>
                         <div class="col-sm-9">
