@@ -1,6 +1,7 @@
 package uk.ac.le.controller.view;
 
 import org.springframework.web.bind.annotation.*;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import uk.ac.le.config.RouteConfig;
 import uk.ac.le.model.Journey;
 import uk.ac.le.service.JourneyManager;
@@ -10,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.ModelAndView;
+import uk.ac.le.utils.Allocation;
+import uk.ac.le.utils.PeerAllocation;
 
 import java.util.List;
 
@@ -24,6 +27,9 @@ public class JourneyController extends BaseController {
 
     @Autowired
     private UserManager userManager;
+
+    @Autowired
+    private PeerAllocation peerAllocation;
 
     @RequestMapping(value = RouteConfig.JOURNEY_EDIT, method = RequestMethod.GET)
     public ModelAndView editJourney(@RequestParam(value = "id", required = false) Long id) {
@@ -92,10 +98,11 @@ public class JourneyController extends BaseController {
         Journey journey = journeyManager.get(id);
         modelAndView.addObject("journey", journey == null ? new Journey() : journey);
 
-        List<Journey> journeys = journeyManager.getAll(journey);
-
-        modelAndView.addObject("journeys", journeys);
-
+        if (journey.isDriver()) {
+            modelAndView.addObject("allocation", peerAllocation.allocateRiders(journey));
+        } else {
+            throw new NotImplementedException();
+        }
 
         org.springframework.security.core.userdetails.User loggedInUser = userManager.getLoggedInUser();
 
