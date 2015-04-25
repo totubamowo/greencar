@@ -16,11 +16,16 @@
 
     <context:spring-configured/>
 
+    <bean class="java.net.URI" id="dbUrl">
+        <!-- Change value to ${DATABASE_URL} when deployed to heroku -->
+        <constructor-arg value="postgres://postgres:geoserver@localhost:5433/greencar"/>
+    </bean>
+
     <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
         <property name="driverClassName" value="org.postgresql.Driver"/>
-        <property name="url" value="jdbc:postgresql://localhost:5433/greencar"/>
-        <property name="username" value="postgres"/>
-        <property name="password" value="geoserver"/>
+        <property name="url" value="#{ 'jdbc:postgresql://' + @dbUrl.getHost() + ':' + @dbUrl.getPort() + @dbUrl.getPath() }"/>
+        <property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] }"/>
+        <property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] }"/>
         <property name="testOnBorrow" value="true"/>
         <property name="testOnReturn" value="true"/>
         <property name="testWhileIdle" value="true"/>
