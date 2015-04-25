@@ -4,61 +4,13 @@
 
 <%@include file='../header.jsp' %>
 
+<link rel="stylesheet" href="/resources/assets/css/journey.css">
+
 <!-- OpenLayers3 CSS & JS -->
 <link rel="stylesheet" href="/resources/assets/js/vendor/ol-v3.2.1/css/ol.css">
 <script src="/resources/assets/js/vendor/ol-v3.2.1/build/ol-debug.js" type="text/javascript"></script>
 
 <div class="container">
-    <style>
-        body {
-            overflow: hidden;
-        }
-
-        form#journey {
-            display: inline;
-        }
-
-        form .error {
-            border-color: #ff0000;
-        }
-
-        #journey-control, #map {
-            height: 450px;
-        }
-
-        #journey-control {
-            background-color: rgba(0, 0, 0, .25);
-            position: fixed;
-            z-index: 9999;
-            overflow-y: scroll;
-            padding: 10px 10px;
-        }
-
-        #journey-control-inner {
-            padding: 5px 10px;
-            font-size: smaller;
-            background-color: rgba(255, 255, 255, 1);
-            border-radius: 10px;
-            min-height: 100%;
-        }
-
-        #map {
-            padding: 0px;
-        }
-
-        #map-controls {
-            margin-top: 10px;
-        }
-
-        #map-controls > li > a {
-            padding: 5px;
-        }
-
-        .ol-zoom.ol-unselectable.ol-control {
-            margin-left: 96%;
-        }
-    </style>
-
     <br>
 
     <div class="col-sm-4 col-md-4 col-lg-3" id="journey-control">
