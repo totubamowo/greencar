@@ -18,7 +18,7 @@
 
     <bean class="java.net.URI" id="dbUrl">
         <!-- set value to "postgres://postgres:geoserver@localhost:5433/greencar" for testing on localhost -->
-        <constructor-arg value="#{systemEnvironment['DATABASE_URL']}"/>
+        <constructor-arg value="postgres://postgres:geotools@aws-rds-greencar.ccogn6nt7x4f.us-east-1.rds.amazonaws.com:5432/greencar"/>
     </bean>
 
     <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
