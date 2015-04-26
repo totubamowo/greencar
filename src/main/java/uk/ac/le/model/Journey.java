@@ -23,8 +23,8 @@ public class Journey extends BaseModel {
 
     public Journey(String source, String sink) {
         super();
-        this.source = source;
-        this.sink = sink;
+        this.setSource(source);
+        this.setSink(sink);
     }
 
     public String getSource() {
@@ -32,7 +32,7 @@ public class Journey extends BaseModel {
     }
 
     public void setSource(String source) {
-        this.source = source;
+        this.source = source.toUpperCase().replace(" ", "");
     }
 
     public String getSink() {
@@ -40,7 +40,7 @@ public class Journey extends BaseModel {
     }
 
     public void setSink(String sink) {
-        this.sink = sink;
+        this.sink = sink.toUpperCase().replace(" ", "");
     }
 
     public boolean isDriver() {
