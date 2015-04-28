@@ -1,7 +1,8 @@
 <div class="container">
     <hr>
     <footer>
-        <p>&copy; tao11@student.le.ac.uk</p>
+        <span>&copy; tao11@student.le.ac.uk</span>
+        <a class="pull-right" href="http://www.onegreenearth.com"><img border="0" src="http://www.onegreenearth.com/images/OGE_member_badge_small.jpg" width="122" height="62" ></a>
     </footer>
 </div>
 
