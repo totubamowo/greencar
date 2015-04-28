@@ -2,6 +2,10 @@ package uk.ac.le.utils;
 
 import uk.ac.le.model.Journey;
 import uk.ac.le.model.User;
+import uk.ac.le.utils.Point;
+
+import java.sql.Time;
+import java.util.Date;
 
 public class TestUtils {
 
@@ -9,6 +13,10 @@ public class TestUtils {
         Journey journey = new Journey();
         journey.setSource("LE55HL");
         journey.setSink("LE17RH");
+        journey.setPurpose("leisure");
+        journey.setDeparture(new Time(new Date().getTime()));
+        journey.setComments("This journey is really cool");
+
 
         return journey;
     }

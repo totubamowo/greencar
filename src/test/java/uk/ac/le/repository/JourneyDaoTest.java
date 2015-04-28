@@ -80,6 +80,19 @@ public class JourneyDaoTest extends BaseDaoTest {
     }
 
     @Test
+    public void listJourneysByFrequency() {
+
+        Journey journey = TestUtils.getAJourneyObject();
+        journey.setFrequency(Journey.Frequency.DAILY);
+
+        journeyDao.save(journey);
+
+        List<Journey> journeys = journeyDao.getAll(Journey.Frequency.DAILY);
+
+        assertEquals(1, journeys.size());
+    }
+
+    @Test
     public void listJourneysForDriver() {
         User user = TestUtils.getAUserObject();
         userDao.save(user);
