@@ -12,14 +12,25 @@
 
 <div class="container">
     <br>
+    <h4>
+        <i class="fa fa-user"></i>&nbsp;${journey.user.username}
+    <br>
+        <a href="#" class="btn" title="view journey on map">
+            <i class="fa fa-automobile"></i>&nbsp;${journey.source}
+            &nbsp;&nbsp;<i class="fa fa-arrow-right"></i>&nbsp;&nbsp;${journey.sink}</a>
+        <a href="<%=request.getHeader("referer")%>" class="btn pull-right"><i
+                class="fa fa-arrow-left"></i>&nbsp;&nbsp;back</a>
+    </h4>
 
     <div class="col-sm-4 col-md-4 col-lg-3" id="journey-control">
         <div id="journey-control-inner">
-            <h4>Journey view<a href="<%=request.getHeader("referer")%>" class="btn pull-right"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;back</a></h4>
-            <div><strong>Name: </strong>${journey.user.username}</div>
             <div><strong>${journey.driver ? 'Driver' : 'Rider' }</strong></div>
-            <div><strong>From: </strong>${journey.source}</div>
-            <div><strong>To: </strong>${journey.sink}</div>
+            <div><strong>Departure: </strong>${fn:substring(journey.departure,0,5)}</div>
+            <div><strong>Frequency: </strong>${journey.frequency.value}</div>
+            <div><strong>Purpose: </strong>${journey.purpose}</div>
+            <c:if test="${null != journey.comments}">
+                <div><strong>Comments: </strong>${journey.comments}</div>
+            </c:if>
             <input id="source" hidden="hidden" value="${journey.source}"/>
             <input id="sink" hidden="hidden" value="${journey.sink}"/>
 
@@ -55,7 +66,7 @@
         <li><a id="zoom-full" href="#"><i class="fa fa-arrows-alt"></i>&nbsp;&nbsp;Zoom
             To Full Extent</a></li>
         <li>
-            <a id="toggle-roads" href="#" ><i class="fa fa-bullseye"></i>&nbsp;&nbsp;Toggle Roads</a>
+            <a id="toggle-roads" href="#"><i class="fa fa-bullseye"></i>&nbsp;&nbsp;Toggle Roads</a>
         </li>
     </ul>
 

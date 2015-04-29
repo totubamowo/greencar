@@ -12,23 +12,26 @@
         <table class="table table-hover">
             <thead>
             <tr>
-                <th>ID</th>
+                <th></th>
                 <th>User</th>
                 <th>Role</th>
-                <th>From</th>
-                <th>To</th>
+                <th>Trip</th>
+                <th>Departure</th>
+                <th>Frequency</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${journeys}" var="v_journey">
+            <c:forEach items="${journeys}" var="v_journey" varStatus="loop" begin="1">
                 <tr>
-                    <td><a href="/journey/view?id=${v_journey.id}">${v_journey.id}</a></td>
+                    <td>${loop.index}</td>
                     <td>${v_journey.user.username}</td>
                     <td>${v_journey.driver ? 'Driver' : 'Rider' }</td>
-                    <td>${v_journey.source}</td>
-                    <td>${v_journey.sink}</td>
-
+                    <td>
+                    ${v_journey.source}&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>&nbsp;&nbsp;${v_journey.sink}
+                    </td>
+                    <td>${fn:substring(v_journey.departure,0,5)}</td>
+                    <td>${v_journey.frequency.value}</td>
                     <td>
                         <a href="/journey/view?id=${v_journey.id}" class="btn btn-info btn-xs">View</a>
                         <c:if test="${loggedInUserName == v_journey.user.username}">

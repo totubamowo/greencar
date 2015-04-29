@@ -11,12 +11,24 @@
 <script src="/resources/assets/js/vendor/ol-v3.2.1/build/ol-debug.js" type="text/javascript"></script>
 
 <div class="container">
-    <br>
+    <h1>${null != journey.id ? 'Update' : 'Create' } journey</h1>
+    <h4>
+        <c:if test="${null != journey.id}">
+            <a href="/journey/view?id=${journey.id}" class="btn" title="view journey"
+               onclick="return confirm('Are you sure you want to leave this page?\nUnsaved changes will be lost?');">
+                <i class="fa fa-eye"></i>&nbsp;view journey</a>
+        </c:if>
+        <a href="<%=request.getHeader("referer")%>" class="btn pull-right"><i
+                class="fa fa-arrow-left"></i>&nbsp;&nbsp;back</a>
+
+        <div class="clearfix"></div>
+
+    </h4>
 
     <div class="col-sm-4 col-md-4 col-lg-3" id="journey-control">
         <div id="journey-control-inner">
-            <h4>${null != journey.id ? 'Update' : 'Create' } Journey</h4>
             <form:form commandName="journey" class="form-inline">
+                <br>
 
                 <div class="form-group">
                     <form:radiobutton id="driver" path="driver"
@@ -25,10 +37,9 @@
                                       value="false"/><label for="rider">&nbsp;Rider</label>
                 </div>
 
-                <hr/>
+                <hr>
 
                 <div class="form-group">
-                    <label class="label-control" for="source">From: </label>
                     <form:input path="source" cssClass="input-control" id="source" required="required"
                                 placeholder="origin postcode"/>
                     <input type="radio" name="pointType" id="source-select" value="s"
@@ -39,7 +50,6 @@
                 <div class="clearfix"></div>
 
                 <div class="form-group">
-                    <label for="sink" class="label-control">To:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                     <form:input path="sink" cssClass="input-control" id="sink" required="required"
                                 placeholder="destination postcode"/>
                     <input type="radio" name="pointType" id="sink-select" value="t"
@@ -47,10 +57,45 @@
                         class="fa fa-flag"></i></label>
                 </div>
 
-                <hr/>
+                <hr>
 
-                <button type="submit"
-                        class="btn btn-sm btn-primary">${null != journey.id ? 'Update' : 'Create' }</button>
+                <div class="form-group">
+                    <label class="label-control" for="departure">Departure: </label><br>
+                    <form:input path="departure" type="time"
+                                value="${null == journey.id ? '07:00' : fn:substring(journey.departure,0,5)}"
+                                cssClass="input-control" id="departure" required="required" />
+                </div>
+
+                <div class="form-group">
+                    <label class="label-control" for="frequency">Select frequency:</label><br>
+                    <form:select path="frequency" id="frequency">
+                        <c:forEach items="${frequencies}" var="frequency">
+                            <form:option value="${frequency}">${frequency.value}</form:option>
+                        </c:forEach>
+                    </form:select>
+                </div>
+
+                <hr>
+
+                <div class="form-group">
+                    <label class="label-control" for="purpose">Purpose:</label><br>
+                    <form:input path="purpose" cssClass="input-control" id="purpose"
+                                placeholder="purpose of journey"/>
+                </div>
+                <br>
+                <br>
+
+                <div class="form-group">
+                    <label class="label-control" for="comments">Comments:</label><br>
+                    <form:textarea cols="30" path="comments" cssClass="input-control" id="comments"
+                                   placeholder="write your comments here"/>
+                </div>
+
+                <hr>
+                <div class="form-group">
+                    <button type="submit"
+                            class="btn btn-sm btn-primary">${null != journey.id ? 'Update' : 'Create' }</button>
+                </div>
             </form:form>
 
             <c:if test="${null != journey.id}">
@@ -94,7 +139,7 @@
         <li><a id="zoom-full" href="#"><i class="fa fa-arrows-alt"></i>&nbsp;&nbsp;Zoom
             To Full Extent</a></li>
         <li>
-            <a id="toggle-roads" href="#" ><i class="fa fa-bullseye"></i>&nbsp;&nbsp;Toggle Roads</a>
+            <a id="toggle-roads" href="#"><i class="fa fa-bullseye"></i>&nbsp;&nbsp;Toggle Roads</a>
         </li>
     </ul>
 
@@ -103,6 +148,13 @@
 <%@include file='../footer.jsp' %>
 
 <script src="/resources/assets/js/journey.js"></script>
-
+<script type="application/javascript">
+    var journeyForm  = $('#journey');
+    journeyForm.submit(function(ev){
+        var timeField = $('#departure');
+        timeField.val(timeField.val()+":00");
+        return true;
+    })
+</script>
 </body>
 </html>

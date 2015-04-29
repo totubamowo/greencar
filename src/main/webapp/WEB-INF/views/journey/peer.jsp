@@ -5,40 +5,42 @@
 <%@include file='../header.jsp' %>
 
 <div class="container">
-
-    <h1>Journey peers</h1>
+    <br>
     <h4>
-        <i class="fa fa-automobile"></i>&nbsp;
-        <a href="/journey/view?id=${journey.id}" title="view journey on map">${journey.source}
+        Journey peers for
+        <a href="/journey/view?id=${journey.id}" class="btn" title="view journey on map">
+            <i class="fa fa-automobile"></i>&nbsp;${journey.source}
             &nbsp;&nbsp;<i class="fa fa-arrow-right"></i>&nbsp;&nbsp;${journey.sink}</a>
+        <a href="<%=request.getHeader("referer")%>" class="btn pull-right"><i
+                class="fa fa-arrow-left"></i>&nbsp;&nbsp;back</a>
     </h4>
 
-    <p>List of feasible <strong>individual ${journey.driver ? 'riders' : 'drivers'}</strong> you can peer with.</p>
+    <p>List of feasible <strong>individual</strong> journey peers.</p>
 
     <div class="table-responsive">
         <table class="table table-hover">
             <thead>
             <tr>
-                <th>ID</th>
+                <th></th>
                 <th>User</th>
                 <th>Role</th>
-                <th>From</th>
-                <th>To</th>
+                <th>Trip</th>
+                <th>Departure</th>
+                <th>Frequency</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${allocation.journeys}" var="v_journey">
+            <c:forEach items="${allocation.journeys}" var="v_journey" varStatus="loop" begin="1">
                 <tr>
-                    <td><a href="/journey/view?id=${v_journey.id}">${v_journey.id}</a></td>
+                    <td>${loop.index}</td>
                     <td>${v_journey.user.username}</td>
                     <td>${v_journey.driver ? 'Driver' : 'Rider' }</td>
-                    <td>${v_journey.source}</td>
-                    <td>${v_journey.sink}</td>
-
-                    <td>
-                        <a href="/journey/view?id=${v_journey.id}" class="btn btn-info btn-xs">View</a>
+                    <td>${v_journey.source}&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>&nbsp;&nbsp;${v_journey.sink}
                     </td>
+                    <td>${fn:substring(v_journey.departure,0,5)}</td>
+                    <td>${v_journey.frequency.value}</td>
+                    <td><a href="/journey/view?id=${v_journey.id}" class="btn btn-info btn-xs">View</a></td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -47,7 +49,7 @@
 
     <br/>
 
-    <p>List of feasible <strong>${journey.driver ? 'rider' : 'driver'} combinations</strong> you can peer with and the
+    <p>List of feasible <strong>combinations</strong> of journey peers with the
         sequence of pickup and drop.</p>
 
     <div class="table-responsive">
@@ -56,22 +58,22 @@
                 <thead>
                 <tr>
                     <th>
-                    <c:forEach items="${v_combo.subRiders}" var="idx">
-                        <c:set var="journey_" value="${allocation.journeys[idx-1]}"/>
-                        ${journey_.user.username}${journey_.id}&nbsp;
-                    </c:forEach>
+                        <c:forEach items="${v_combo.subRiders}" var="idx">
+                            <c:set var="journey_" value="${allocation.journeys[idx-1]}"/>
+                            ${journey_.user.username}${journey_.id}&nbsp;
+                        </c:forEach>
                     </th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
                     <td>
-                        ${journey.source}&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>&nbsp;&nbsp;
-                    <c:forEach items="${v_combo.subRiderId}" var="idx" varStatus="loop">
-                        <c:set var="journey_" value="${allocation.journeys[idx-1]}"/>
-                        ${v_combo.isSource[loop.index] ? journey_.source : journey_.sink}&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>&nbsp;&nbsp;
-                    </c:forEach>
-                        ${journey.sink}
+                            ${journey.source}&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>&nbsp;&nbsp;
+                        <c:forEach items="${v_combo.subRiderId}" var="idx" varStatus="loop">
+                            <c:set var="journey_" value="${allocation.journeys[idx-1]}"/>
+                            ${v_combo.isSource[loop.index] ? journey_.source : journey_.sink}&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>&nbsp;&nbsp;
+                        </c:forEach>
+                            ${journey.sink}
                     </td>
                 </tr>
                 </tbody>
