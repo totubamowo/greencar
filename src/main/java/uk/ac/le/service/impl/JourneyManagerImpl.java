@@ -38,6 +38,10 @@ public class JourneyManagerImpl implements JourneyManager {
         return journeyDao.getAll(journey);
     }
 
+    public List<Journey> getAll(Journey.Frequency frequency) {
+        return journeyDao.getAll(frequency);
+    }
+
     public void save(Journey journey) {
         journeyDao.save(journey);
     }

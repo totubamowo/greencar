@@ -15,6 +15,8 @@ public interface JourneyDao {
 
     List<Journey> getAll(Journey journey);
 
+    List<Journey> getAll(Journey.Frequency frequency);
+
     void save(Journey journey);
 
     void delete(Long id);

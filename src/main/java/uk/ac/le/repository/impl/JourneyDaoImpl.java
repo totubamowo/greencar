@@ -51,4 +51,18 @@ public class JourneyDaoImpl extends BaseDao<Journey> implements JourneyDao {
         return getEntityManager().createQuery(criteria).getResultList();
     }
 
+    public List<Journey> getAll(Journey.Frequency frequency) {
+        CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<Journey> criteria = builder.createQuery(Journey.class);
+
+        Root<Journey> tRoot = criteria.from(Journey.class);
+
+        List<Predicate> wherePredicates = new ArrayList<Predicate>();
+        wherePredicates.add(builder.equal(tRoot.get("deleted"), false));
+        wherePredicates.add(builder.equal(tRoot.get("frequency"), frequency));
+
+        buildWhereClause(criteria, wherePredicates);
+
+        return getEntityManager().createQuery(criteria).getResultList();
+    }
 }
