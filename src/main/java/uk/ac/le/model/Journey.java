@@ -1,6 +1,7 @@
 package uk.ac.le.model;
 
 import javax.persistence.*;
+import java.sql.Time;
 
 @Entity(name = "journeys")
 public class Journey extends BaseModel {
@@ -13,6 +14,19 @@ public class Journey extends BaseModel {
 
     @Column
     private boolean isDriver;
+
+    @Column
+    private Time departure;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Frequency frequency;
+
+    @Column
+    private String purpose;
+
+    @Column
+    private String comments;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -51,6 +65,38 @@ public class Journey extends BaseModel {
         this.isDriver = isDriver;
     }
 
+    public Time getDeparture() {
+        return departure;
+    }
+
+    public void setDeparture(Time departure) {
+        this.departure = departure;
+    }
+
+    public Frequency getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(Frequency frequency) {
+        this.frequency = frequency;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public String getPurpose() {
+        return purpose;
+    }
+
+    public void setPurpose(String purpose) {
+        this.purpose = purpose;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+
     public User getUser() {
         return user;
     }
@@ -64,5 +110,23 @@ public class Journey extends BaseModel {
         String mode = isDriver ? "driver" : "rider";
         return super.toString() + " source = " + source + " sink = " + sink
                 + " " + mode + " id = " + getId();
+    }
+
+    public enum Frequency {
+        DAILY("Daily"),
+        WEEKLY("Weekly"),
+        SHIFT("Shift"),
+        ONE_OFF("One-off"),
+        OCCASIONAL("Occasional");
+
+        private final String value;
+
+        Frequency(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
     }
 }

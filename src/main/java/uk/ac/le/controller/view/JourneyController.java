@@ -42,6 +42,8 @@ public class JourneyController extends BaseController {
 
         modelAndView.addObject("journey", journey == null ? new Journey() : journey);
 
+        modelAndView.addObject("frequencies", Journey.Frequency.values());
+
         org.springframework.security.core.userdetails.User loggedInUser = userManager.getLoggedInUser();
 
         if (loggedInUser != null) {
