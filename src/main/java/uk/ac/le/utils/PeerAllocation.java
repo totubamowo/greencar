@@ -174,7 +174,7 @@ public class PeerAllocation {
         // distTo[v] = distance of shortest s->v path
         private double[] distTo;
 
-        // edgeTo[v] = last edge on path from s to v wrong
+        // nextVertex[v] = next vertex on path from v on path s to t
         private int[] nextVertex;
 
         // visited[v] = true if v has been added to path
