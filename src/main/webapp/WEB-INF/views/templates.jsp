@@ -52,12 +52,13 @@
 
     <div class="container">
 
-        <h1>Contact Me</h1>
+        <h1>Contact me</h1>
 
-        <p>Let's have a beer.</p>
+        <p>I am passionate about developing web applications.</p>
+
+        <p><a href="tel:+44740535750"><i class="fa fa-mobile"></i>&nbsp;Call me</a>, let's have a beer.</p>
 
     </div>
-
 </script>
 
 <script type="text/template" id="journey-list-template">
@@ -67,35 +68,26 @@
         <h1>Journeys</h1>
 
 
-        <div class="table-responsive">
-            <table class="table table-hover table-striped">
-                <tbody>
-                <@ _.each(journeys, function(journey, index) { @>
-                <tr>
-                    <td>
-                        <div class="col-sm-3">
-                            <img width="150px" src="http://lorempixel.com/400/200/sports/<@= index % 10 @>"
-                                 class="img-responsive img-thumbnail">
-                        </div>
-                        <div class="col-sm-9">
-                            <div><strong>Name: </strong><@= htmlEncode(journey.get('user').username) @></div>
-                            <div><strong><@= journey.get('driver') ? 'Driver' : 'Rider' @></strong></div>
-                            <div><strong>From: </strong><@= htmlEncode(journey.get('source')) @></div>
-                            <div><strong>To: </strong><@= htmlEncode(journey.get('sink')) @></div>
-                            <div class="pull-right"><a href="/journey/view?id=<@= journey.id @>"
-                                                       class="btn btn-info btn-xs">Find
-                                out
-                                more</a></div>
-                        </div>
-                    </td>
-                </tr>
-                <@ }); @>
-                </tbody>
-            </table>
+        <@ _.each(journeys, function(journey, index) { @>
+        <div class="panel col-sm-12 col-md-4">
+            <div class="panel-body">
+                <img width="100%" src="http://lorempixel.com/400/200/sports/<@= index % 10 @>" class="img-responsive">
+                <br>
+                <i class="fa fa-automobile"></i>&nbsp;
+                <@= htmlEncode(journey.get('source')) @>&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>&nbsp;&nbsp;
+                <@= htmlEncode(journey.get('sink')) @>
+
+                <div><strong>Departure: </strong><@= htmlEncode(journey.get('departure')).substring(0,5) @></div>
+                <div><strong>Purpose: </strong><@= htmlEncode(journey.get('purpose')) @></div>
+            </div>
+            <div class="panel-footer">
+                <span class="pull-left"><i class="fa fa-user"></i>&nbsp;<@= htmlEncode(journey.get('user').username) @></span>
+                <a href="/journey/view?id=<@= journey.id @>" class="btn btn-info btn-xs pull-right">View complete</a>
+                <div class="clearfix"></div>
+            </div>
         </div>
-
+        <@ }); @>
     </div>
-
 </script>
 
 <script type="text/template" id="user-list-template">
@@ -113,7 +105,7 @@
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Email</th>
-                    <th></th>
+                    <%--<th></th>--%>
                 </tr>
                 </thead>
                 <tbody>
@@ -124,7 +116,7 @@
                     <td><@= htmlEncode(user.get('firstName')) @></td>
                     <td><@= htmlEncode(user.get('lastName')) @></td>
                     <td><@= htmlEncode(user.get('email')) @></td>
-                    <td><a href="/#users/edit/<@= user.id @>" class="btn btn-info btn-xs">Edit</a></td>
+                    <%--<td><a href="/#users/edit/<@= user.id @>" class="btn btn-info btn-xs">Edit</a></td>--%>
                 </tr>
                 <@ }); @>
                 </tbody>
