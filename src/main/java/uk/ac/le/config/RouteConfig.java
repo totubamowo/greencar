@@ -62,4 +62,6 @@ public class RouteConfig {
 
     public static final String USER_API_BASE_URL = "/users"; // GET, POST
     public static final String USER_API_SINGLE_PERSON_URL = "/{id}"; // GET, PUT, DELETE
+
+    public static final String DEMO_API_BASE_URL = "/demos"; // GET, POST
 }
