@@ -50,13 +50,13 @@
                 <li><a href="/#journeys">All Journeys</a></li>
 
                 <c:if test="${fn:length(loggedInUserName) > 1}">
-                    <li><a href="/journey/list/${loggedInUserName}">My Journeys</a></li>
-
                     <li class="dropdown">
                         <a id="userDrop" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i
                                 class="fa fa-user"></i>&nbsp;&nbsp;${loggedInUserName}<b
                                 class="caret"></b></a>
                         <ul class="dropdown-menu">
+                            <li><a href="/journey/list/${loggedInUserName}" data-toggle="collapse"
+                                   data-target=".navbar-collapse.in"><i class="fa fa-cab"></i>&nbsp;My Journeys</a></li>
                             <li><a href="/user/edit" data-toggle="collapse" data-target=".navbar-collapse.in"><i
                                     class="fa fa-cog"></i>&nbsp;&nbsp;Settings</a>
                             </li>
