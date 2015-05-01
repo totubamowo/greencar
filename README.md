@@ -1,4 +1,5 @@
-# A Java/Spring template project ready to be deployed to Heroku [ ![Codeship Status for ParallelBrains/Spring-Hibernate-PostgreSQL-Maven-Jetty](https://www.codeship.io/projects/f951ab10-09ea-0131-64c8-7eb8e86f2980/status?branch=master)](https://www.codeship.io/projects/7451)
+# Greencar @UoL is a Java web application project ready to be deployed to Heroku cloud platform
+The application is based on Spring, Hibernate, PostgreSQL, Maven and Jetty
 
 Built on Back-end frameworks including:
 * Spring MVC (3.2.4.RELEASE)
@@ -12,42 +13,29 @@ Front-end frameworks including:
 * Twitter Bootstrap (3.0.0) and jQuery (1.10.2)
 * Backbone.js (1.0.0) and Underscore.js (1.5.2)
 
-... and soon: 
-
-* Require.js
-* Mustache.js
-
-Please see the current development status of the project here: https://trello.com/b/Mo2khGgC/baselayout
-
-You can find the API documentation here: http://docs.parallelbrainsbaselayout.apiary.io/
-A mock API operates at http://parallelbrainsbaselayout.apiary.io/ 
-
-Contributions are much appreciated! If you want to implement a new feature, please create a new branch off master called
- feature/your-feature-name and submit a pull request to master when your implementation is done.
-
 ## Setting up locally
 
 * Clone the project
 ```sh
-git clone https://github.com/ParallelBrains/Spring-Hibernate-PostgreSQL-Maven-Jetty.git
+git clone https://teerexinc@bitbucket.org/teerexinc/greencar.git
 ```
 * Download and install PostgreSQL
 
 * Download a client to connect to your local PostgreSQL server. A good one is http://www.pgadmin.org/
 
-* Create a database called "base"
+* Create a database called "greencar"
 
 * Add DATABASE_URL as an environment variable. (If for some reason it doesn't work, try hardcoding it on root-context.xml)
 ```sh
-export DATABASE_URL=postgres://USERNAME:PASSWORD@localhost:5432/base
+export DATABASE_URL=postgres://USERNAME:PASSWORD@localhost:5433/greencar
 ```
 
 * Go to project directory, run
 ```sh
-mvn jetty:run
+mvn -D jetty.port=9999 jetty:run
 ```
 
-* Go to http://localhost:8080/
+* Go to http://localhost:9999/
 
 ## Deploying the build to Heroku
 
@@ -68,13 +56,10 @@ git push heroku master
 heroku open
 ```
 
-## Thanks
-To Nicola Tassini for https://github.com/nicolatassini/Heroku-J2EE-Spring-MVC---Hibernate---PostgreSQL----Maven---Jetty which this project is built upon.
+## Reference codes this project is based on.
+*https://github.com/ParallelBrains/Spring-Hibernate-PostgreSQL-Maven-Jetty
 
-## Useful links
+* https://github.com/nicolatassini/Heroku-J2EE-Spring-MVC---Hibernate---PostgreSQL----Maven---Jetty 
 
+* https://github.com/heroku/devcenter-spring-mvc-hibernate
 * https://devcenter.heroku.com/articles/getting-started-with-spring-mvc-hibernate
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/ParallelBrains/spring-hibernate-postgresql-maven-jetty/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
