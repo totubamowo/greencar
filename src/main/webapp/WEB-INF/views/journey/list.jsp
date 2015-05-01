@@ -6,7 +6,7 @@
 
 <div class="container">
 
-    <h1>Journeys list</h1>
+    <h1>My journeys</h1>
 
     <div class="table-responsive">
         <table class="table table-hover">
@@ -22,13 +22,14 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${journeys}" var="v_journey" varStatus="loop" begin="1">
+            <c:forEach items="${journeys}" var="v_journey" varStatus="loop">
                 <tr>
-                    <td>${loop.index}</td>
+                    <td>${loop.index+1}</td>
                     <td>${v_journey.user.username}</td>
                     <td>${v_journey.driver ? 'Driver' : 'Rider' }</td>
                     <td>
-                    ${v_journey.source}&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>&nbsp;&nbsp;${v_journey.sink}
+                            ${v_journey.source}&nbsp;&nbsp;<i
+                            class="fa fa-arrow-right"></i>&nbsp;&nbsp;${v_journey.sink}
                     </td>
                     <td>${fn:substring(v_journey.departure,0,5)}</td>
                     <td>${v_journey.frequency.value}</td>
