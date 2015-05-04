@@ -3,11 +3,11 @@ package uk.ac.le.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Combo{
+public class Combo {
     List<Integer> subRiders = new ArrayList<Integer>();
     List<Double> distTo = new ArrayList<Double>();
-    List<Boolean> isSource = new ArrayList<Boolean>();
-    List<Integer> subRiderId = new ArrayList<Integer>();
+    List<String> nextTo = new ArrayList<String>();
+    String toString ="";
 
     public List<Integer> getSubRiders() {
         return subRiders;
@@ -25,19 +25,19 @@ public class Combo{
         this.distTo = distTo;
     }
 
-    public List<Boolean> getIsSource() {
-        return isSource;
+    public List<String> getNextTo() {
+        return nextTo;
     }
 
-    public void setIsSource(List<Boolean> isSource) {
-        this.isSource = isSource;
+    public void setNextTo(List<String> nextTo) {
+        this.nextTo = nextTo;
     }
 
-    public List<Integer> getSubRiderId() {
-        return subRiderId;
+    public String getToString() {
+        return getNextTo().toString();
     }
 
-    public void setSubRiderId(List<Integer> subRiderId) {
-        this.subRiderId = subRiderId;
+    public void setToString(String toString) {
+        this.toString = toString;
     }
 }

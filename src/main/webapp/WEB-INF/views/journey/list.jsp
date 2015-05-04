@@ -43,7 +43,7 @@
                         <c:if test="${loggedInUserName == v_journey.user.username}">
                             <a href="/journey/edit?id=${v_journey.id}" class="btn btn-info btn-xs">Edit</a>
                             <c:if test="${v_journey.driver}">
-                                <a href="/journey/peer?id=${v_journey.id}" class="btn btn-info btn-xs">Peers</a>
+                                <a href="/journey/peer/list?id=${v_journey.id}" class="btn btn-info btn-xs">Peers</a>
                             </c:if>
                         </c:if>
                     </td>

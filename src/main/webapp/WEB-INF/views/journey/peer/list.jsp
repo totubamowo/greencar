@@ -2,7 +2,7 @@
 <%@ page session="false" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<%@include file='../header.jsp' %>
+<%@include file='../../header.jsp' %>
 
 <div class="container">
     <br>
@@ -69,12 +69,19 @@
                 <tbody>
                 <tr>
                     <td>
-                            ${journey.source}&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>&nbsp;&nbsp;
-                        <c:forEach items="${v_combo.subRiderId}" var="idx" varStatus="loop">
-                            <c:set var="journey_" value="${allocation.journeys[idx-1]}"/>
-                            ${v_combo.isSource[loop.index] ? journey_.source : journey_.sink}&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>&nbsp;&nbsp;
+                        ${journey.source}&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>&nbsp;&nbsp;
+
+                        <c:forEach items="${v_combo.nextTo}" var="postcode" varStatus="loop">
+                            ${postcode}&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>&nbsp;&nbsp;
                         </c:forEach>
-                            ${journey.sink}
+
+                         ${journey.sink}
+
+                         <form method="get" action="/journey/peer/single" id="view_${loop_.index}">
+                             <c:set var="len" value="${fn:length(v_combo.toString)}"/>
+                             <input class="hidden" name="postcodes" value="${journey.source}, ${fn:substring(v_combo.toString,1,len-1)}, ${journey.sink}">
+                             <input class="btn btn-xs btn-info pull-right" type="submit" value="View" form="view_${loop_.index}">
+                        </form>
                     </td>
                 </tr>
                 </tbody>
@@ -85,7 +92,7 @@
     <br/>
 </div>
 
-<%@include file='../footer.jsp' %>
+<%@include file='../../footer.jsp' %>
 
 </body>
 </html>

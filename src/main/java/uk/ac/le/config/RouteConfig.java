@@ -44,9 +44,10 @@ public class RouteConfig {
     // Sub View Mappings
     public static final String JOURNEY_EDIT = "edit"; // GET, POST
     public static final String JOURNEY_VIEW = "view"; // GET
-    public static final String JOURNEY_PEER = "peer"; // GET
     public static final String JOURNEY_LIST = "list"; // GET
     public static final String JOURNEY_DELETE = "delete";
+    public static final String JOURNEY_PEER_LIST = "peer/list"; // GET
+    public static final String JOURNEY_PEER_SINGLE = "peer/single"; // GET
 
     public static final String USER_EDIT = "edit"; // GET, POST
     public static final String USER_LIST = "list"; // GET
@@ -54,9 +55,10 @@ public class RouteConfig {
 
     // Views
     public static final String JOURNEY_EDIT_VIEW = "journey/edit";
-    public static final String JOURNEY_PEER_VIEW = "journey/peer";
     public static final String JOURNEY_VIEW_VIEW = "journey/view";
     public static final String JOURNEY_LIST_VIEW = "journey/list";
+    public static final String JOURNEY_PEER_LIST_VIEW = "journey/peer/list";
+    public static final String JOURNEY_PEER_SINGLE_VIEW = "journey/peer/single";
 
     public static final String USER_EDIT_VIEW = "user/edit";
     public static final String USER_LIST_VIEW = "user/list";
