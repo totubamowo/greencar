@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.*;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import uk.ac.le.config.RouteConfig;
 import uk.ac.le.model.Journey;
+import uk.ac.le.model.User;
 import uk.ac.le.service.JourneyManager;
 import uk.ac.le.service.UserManager;
 import org.slf4j.Logger;
@@ -38,13 +39,18 @@ public class JourneyController extends BaseController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(RouteConfig.JOURNEY_EDIT_VIEW);
 
+        org.springframework.security.core.userdetails.User loggedInUser = userManager.getLoggedInUser();
+
         Journey journey = journeyManager.get(id);
 
-        modelAndView.addObject("journey", journey == null ? new Journey() : journey);
+        if (journey == null) {
+            journey = new Journey();
+            journey.setUser(userManager.get(loggedInUser.getUsername()));
+        }
+
+        modelAndView.addObject("journey", journey);
 
         modelAndView.addObject("frequencies", Journey.Frequency.values());
-
-        org.springframework.security.core.userdetails.User loggedInUser = userManager.getLoggedInUser();
 
         if (loggedInUser != null) {
             modelAndView.addObject("loggedInUserName", loggedInUser.getUsername());
@@ -79,10 +85,12 @@ public class JourneyController extends BaseController {
 
         org.springframework.security.core.userdetails.User loggedInUser = userManager.getLoggedInUser();
 
-        if (loggedInUser != null) {
-            journey.setUser(userManager.get(loggedInUser.getUsername()));
-        } else {
-            journey.setUser(userManager.get(0L));
+        User owner = userManager.get(journey.getUser().getId());
+
+        LOGGER.info(loggedInUser.getUsername() +" journey usernames "+owner.getUsername());
+
+        if (!loggedInUser.getUsername().equals(owner.getUsername())) {
+            throw new SecurityException("LoggedInUser is not the owner of journey");
         }
 
         journeyManager.save(journey);

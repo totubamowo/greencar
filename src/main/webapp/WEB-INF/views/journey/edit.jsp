@@ -96,6 +96,7 @@
                     <button type="submit"
                             class="btn btn-sm btn-primary">${null != journey.id ? 'Update' : 'Create' }</button>
                 </div>
+                <form:hidden path="user.id" />
             </form:form>
 
             <c:if test="${null != journey.id}">
