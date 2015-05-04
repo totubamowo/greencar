@@ -6,7 +6,12 @@
 
 <div class="container">
 
-    <h1>My journeys</h1>
+    <h1>My journeys
+        <form action="/journey/edit" style="display: inline; float: right">
+            <button type="submit" class="btn btn-primary">New Journey</button>
+        </form>
+        <div class="clearfix"></div>
+    </h1>
 
     <div class="table-responsive">
         <table class="table table-hover">
@@ -47,16 +52,6 @@
             </tbody>
         </table>
     </div>
-
-    <br/>
-    <br/>
-
-    <form action="/journey/edit">
-        <button type="submit" class="btn btn-primary">Add Journey</button>
-    </form>
-
-    <br/>
-
 </div>
 
 <%@include file='../footer.jsp' %>
