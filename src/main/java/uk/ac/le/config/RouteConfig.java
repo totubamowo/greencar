@@ -16,6 +16,13 @@ public class RouteConfig {
     // Views
     public static final String HOMEPAGE_VIEW = "home";
 
+
+    /**
+     * Exceptions
+     */
+    // Views
+    public static final String ERROR_VIEW = "error";
+
     /**
      * Login
      */
