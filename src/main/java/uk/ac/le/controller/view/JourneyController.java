@@ -87,10 +87,8 @@ public class JourneyController extends BaseController {
 
         User owner = userManager.get(journey.getUser().getId());
 
-        LOGGER.info(loggedInUser.getUsername() +" journey usernames "+owner.getUsername());
-
         if (!loggedInUser.getUsername().equals(owner.getUsername())) {
-            throw new SecurityException("LoggedInUser is not the owner of journey");
+            throw new SecurityException("You do not have the access rights to edit: "+journey.toString());
         }
 
         journeyManager.save(journey);

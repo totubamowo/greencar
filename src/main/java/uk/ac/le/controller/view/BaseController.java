@@ -22,6 +22,8 @@ public abstract class BaseController {
     @ExceptionHandler(Exception.class)
     public ModelAndView handleAllException(Exception ex) {
 
+        LOGGER.error(ex.toString());
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(RouteConfig.ERROR_VIEW);
 
