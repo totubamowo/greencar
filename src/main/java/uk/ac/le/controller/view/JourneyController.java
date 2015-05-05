@@ -88,7 +88,7 @@ public class JourneyController extends BaseController {
         User owner = userManager.get(journey.getUser().getId());
 
         if (!loggedInUser.getUsername().equals(owner.getUsername())) {
-            throw new SecurityException("You do not have the access rights to edit: "+journey.toString());
+            throw new SecurityException("You do not have the access rights to edit: " + journey.toString());
         }
 
         journeyManager.save(journey);
@@ -96,12 +96,12 @@ public class JourneyController extends BaseController {
         return redirectTo(RouteConfig.JOURNEY_LIST + "/" + loggedInUser.getUsername());
     }
 
-    @RequestMapping(value = RouteConfig.JOURNEY_PEER, method = RequestMethod.GET)
+    @RequestMapping(value = RouteConfig.JOURNEY_PEER_LIST, method = RequestMethod.GET)
     public ModelAndView peerJourney(@RequestParam(value = "id", required = true) Long id) {
         LOGGER.debug("Received request to view journey id : " + id);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName(RouteConfig.JOURNEY_PEER_VIEW);
+        modelAndView.setViewName(RouteConfig.JOURNEY_PEER_LIST_VIEW);
 
         Journey journey = journeyManager.get(id);
         modelAndView.addObject("journey", journey == null ? new Journey() : journey);
@@ -111,6 +111,24 @@ public class JourneyController extends BaseController {
         } else {
             throw new NotImplementedException();
         }
+
+        org.springframework.security.core.userdetails.User loggedInUser = userManager.getLoggedInUser();
+
+        if (loggedInUser != null) {
+            modelAndView.addObject("loggedInUserName", loggedInUser.getUsername());
+        }
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = RouteConfig.JOURNEY_PEER_SINGLE, method = RequestMethod.GET)
+    public ModelAndView viewPeerJourney(@RequestParam(value = "postcodes", required = true) String postcodes) {
+        LOGGER.debug("Received request to view journey peer: " + postcodes + " on map");
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName(RouteConfig.JOURNEY_PEER_SINGLE_VIEW);
+
+        modelAndView.addObject("postcodes", postcodes.split(", "));
 
         org.springframework.security.core.userdetails.User loggedInUser = userManager.getLoggedInUser();
 

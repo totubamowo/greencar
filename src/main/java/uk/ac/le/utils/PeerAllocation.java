@@ -157,9 +157,9 @@ public class PeerAllocation {
                         combo.setSubRiders(list);
                         int current = nextVertex[s];
                         while (nextVertex[current] != Integer.MIN_VALUE) {
+                            int idx = current - 1;
                             combo.getDistTo().add(distTo[current]);
-                            combo.getIsSource().add(current <= n);
-                            combo.getSubRiderId().add(current <= n ? current : current - n);
+                            combo.getNextTo().add(current <= n ? riderJourneys.get(idx).getSource() : riderJourneys.get(idx - n).getSink());
                             current = nextVertex[current];
                         }
                         allocation.getCombos().add(combo);
