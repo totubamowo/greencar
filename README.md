@@ -62,7 +62,7 @@ git push heroku master
 heroku open
 ```
 
-## This codes are based on yhe following reference codes.
+## This code base of this project is based on the following references.
 *https://github.com/ParallelBrains/Spring-Hibernate-PostgreSQL-Maven-Jetty
 
 * https://github.com/nicolatassini/Heroku-J2EE-Spring-MVC---Hibernate---PostgreSQL----Maven---Jetty 
