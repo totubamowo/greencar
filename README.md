@@ -1,4 +1,5 @@
-# Greencar @UoL is a Java web application project ready to be deployed to Heroku cloud platform
+# Greencar@UoL
+GreenCar@UoL is a Java web application project ready to be deployed to Heroku cloud platform
 The application is based on Spring, Hibernate, PostgreSQL, Maven and Jetty
 
 Built on Back-end frameworks including:
@@ -25,9 +26,9 @@ git clone https://teerexinc@bitbucket.org/teerexinc/greencar.git
 
 * Create a database called "greencar"
 
-* Add DATABASE_URL as an environment variable. (If for some reason it doesn't work, try hardcoding it on root-context.xml)
-```sh
-export DATABASE_URL=postgres://USERNAME:PASSWORD@localhost:5433/greencar
+* Change dbURL bean in db.xml using the credential of the database created.
+```
+value="postgres://postgres:geoserver@localhost:5433/greencar"
 ```
 
 * Go to project directory, run
@@ -46,6 +47,11 @@ mvn -D jetty.port=9999 jetty:run
 heroku create
 ```
 
+*setup a free instance of PostgreSQL database server on heroku via the web portal, Check if database environment variable is created
+```sh
+heroku config
+```
+
 * Push the code on Heroku
 ```sh
 git push heroku master
@@ -56,7 +62,7 @@ git push heroku master
 heroku open
 ```
 
-## Reference codes this project is based on.
+## This codes are based on yhe following reference codes.
 *https://github.com/ParallelBrains/Spring-Hibernate-PostgreSQL-Maven-Jetty
 
 * https://github.com/nicolatassini/Heroku-J2EE-Spring-MVC---Hibernate---PostgreSQL----Maven---Jetty 
