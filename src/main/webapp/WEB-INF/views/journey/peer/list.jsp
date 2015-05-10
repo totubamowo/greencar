@@ -31,7 +31,7 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${allocation.journeys}" var="v_journey" varStatus="loop">
+            <c:forEach items="${journeyPeers.journeys}" var="v_journey" varStatus="loop">
                 <tr>
                     <td>${loop.index+1}</td>
                     <td>${v_journey.user.username}</td>
@@ -53,14 +53,14 @@
         sequence of pickup and drop.</p>
 
     <div class="table-responsive">
-        <c:forEach items="${allocation.combos}" var="v_combo" varStatus="loop_">
+        <c:forEach items="${journeyPeers.combinations}" var="v_combo" varStatus="loop_">
             <table class="table table-hover">
                 <thead>
                 <tr>
                     <th>
                         ${loop_.index+1}&nbsp;&nbsp;
                         <c:forEach items="${v_combo.subRiders}" var="idx">
-                            <c:set var="journey_" value="${allocation.journeys[idx-1]}"/>
+                            <c:set var="journey_" value="${journeyPeers.journeys[idx-1]}"/>
                             ${journey_.user.username}&nbsp;
                         </c:forEach>
                     </th>

@@ -12,8 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.ModelAndView;
-import uk.ac.le.utils.Allocation;
-import uk.ac.le.utils.PeerAllocation;
+import uk.ac.le.utils.PeerCombination;
 
 import java.util.List;
 
@@ -30,7 +29,7 @@ public class JourneyController extends BaseController {
     private UserManager userManager;
 
     @Autowired
-    private PeerAllocation peerAllocation;
+    private PeerCombination peerCombination;
 
     @RequestMapping(value = RouteConfig.JOURNEY_EDIT, method = RequestMethod.GET)
     public ModelAndView editJourney(@RequestParam(value = "id", required = false) Long id) {
@@ -107,7 +106,7 @@ public class JourneyController extends BaseController {
         modelAndView.addObject("journey", journey == null ? new Journey() : journey);
 
         if (journey.isDriver()) {
-            modelAndView.addObject("allocation", peerAllocation.allocateRiders(journey));
+            modelAndView.addObject("journeyPeers", peerCombination.computeJourneyPeers(journey));
         } else {
             throw new NotImplementedException();
         }

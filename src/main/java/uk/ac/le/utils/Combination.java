@@ -3,7 +3,7 @@ package uk.ac.le.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Combo {
+public class Combination {
     List<Integer> subRiders = new ArrayList<Integer>();
     List<Double> distTo = new ArrayList<Double>();
     List<String> nextTo = new ArrayList<String>();

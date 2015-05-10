@@ -5,13 +5,13 @@ import uk.ac.le.model.Journey;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Allocation {
+public class JourneyPeers {
     List<Journey> journeys;
-    List<Combo> combos;
+    List<Combination> combinations;
 
-    public Allocation() {
+    public JourneyPeers() {
         super();
-        combos = new ArrayList<Combo>();
+        combinations = new ArrayList<Combination>();
     }
 
     public List<Journey> getJourneys() {
@@ -22,11 +22,11 @@ public class Allocation {
         this.journeys = journeys;
     }
 
-    public List<Combo> getCombos() {
-        return combos;
+    public List<Combination> getCombinations() {
+        return combinations;
     }
 
-    public void setCombos(List<Combo> combos) {
-        this.combos = combos;
+    public void setCombinations(List<Combination> combinations) {
+        this.combinations = combinations;
     }
 }

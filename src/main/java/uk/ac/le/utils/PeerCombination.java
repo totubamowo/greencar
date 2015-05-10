@@ -17,9 +17,9 @@ import java.util.Iterator;
 import java.util.List;
 
 @Component
-public class PeerAllocation {
+public class PeerCombination {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PeerAllocation.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PeerCombination.class);
 
     @Autowired
     private JourneyManager journeyManager;
@@ -27,30 +27,30 @@ public class PeerAllocation {
     @Autowired
     private RouteManager routeManager;
 
-    public Allocation allocateRiders(Journey driverJourney) {
+    public JourneyPeers computeJourneyPeers(Journey driverJourney) {
 
         // create an instance of ComputeAllocation for every request to guarantee 'thread safety'
-        ComputeAllocation computeAllocation = new ComputeAllocation(driverJourney);
+        ComputeCombinations computeCombinations = new ComputeCombinations(driverJourney);
 
-        return computeAllocation.getAllocation();
+        return computeCombinations.getJourneyPeers();
     }
 
-    private class ComputeAllocation {
+    private class ComputeCombinations {
 
         private Journey driverJourney;
 
-        public ComputeAllocation(Journey driverJourney) {
+        public ComputeCombinations(Journey driverJourney) {
             this.driverJourney = driverJourney;
-            findRiders();
-            buildGraph();
-            computeCombos();
+            findRiders();// compute individual journey peers
+            buildGraph();// build graph of riders based on the individual journey peers
+            computeCombinations();// compute feasible combinations
         }
 
         // result of computation
-        private Allocation allocation = new Allocation();
+        private JourneyPeers journeyPeers = new JourneyPeers();
 
-        public Allocation getAllocation() {
-            return allocation;
+        public JourneyPeers getJourneyPeers() {
+            return journeyPeers;
         }
 
         // reference cost = 4/3*h(s->t)
@@ -94,7 +94,7 @@ public class PeerAllocation {
             }
 
             // add journeys that can be individually peered with driver to result
-            allocation.setJourneys(journeys);
+            journeyPeers.setJourneys(journeys);
         }
 
         // number of riders, driver source and sink
@@ -140,7 +140,7 @@ public class PeerAllocation {
         List<Integer> subRiders;
 
         // computes the combination of riders suitable for peering
-        private void computeCombos() {
+        private void computeCombinations() {
             for (List<Integer> list : (PowerSet.powerSet(riders))) {
                 subRiders = list;
                 // reset variables used in computing path for a subset of riders
@@ -153,16 +153,16 @@ public class PeerAllocation {
                     getPath(s);
                     // add result if there is a path to driver's sink
                     if (visited[t]) {
-                        Combo combo = new Combo();
-                        combo.setSubRiders(list);
+                        Combination combination = new Combination();
+                        combination.setSubRiders(list);
                         int current = nextVertex[s];
                         while (nextVertex[current] != Integer.MIN_VALUE) {
                             int idx = current - 1;
-                            combo.getDistTo().add(distTo[current]);
-                            combo.getNextTo().add(current <= n ? riderJourneys.get(idx).getSource() : riderJourneys.get(idx - n).getSink());
+                            combination.getDistTo().add(distTo[current]);
+                            combination.getNextTo().add(current <= n ? riderJourneys.get(idx).getSource() : riderJourneys.get(idx - n).getSink());
                             current = nextVertex[current];
                         }
-                        allocation.getCombos().add(combo);
+                        journeyPeers.getCombinations().add(combination);
                     }
                 }
             }
