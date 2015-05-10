@@ -19,7 +19,7 @@
             <c:forEach items="${postcodes}" var="postcode" varStatus="loop">
                 ${postcode}&nbsp;&nbsp;<i class="fa fa-arrow-right"></i>&nbsp;&nbsp;
             </c:forEach></a>
-        <a href="<%=request.getHeader("referer")%>" class="btn pull-right"><i
+        <a href="${header.referer}" class="btn pull-right"><i
                 class="fa fa-arrow-left"></i>&nbsp;&nbsp;back</a>
     </h4>
 

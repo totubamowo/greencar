@@ -2,7 +2,9 @@
     <hr>
     <footer>
         <span>&copy; tao11@student.le.ac.uk</span>
-        <a class="pull-right" href="http://www.onegreenearth.com"><img border="0" src="http://www.onegreenearth.com/images/OGE_member_badge_small.jpg" width="122" height="62" ></a>
+        <a class="pull-right" href="http://www.onegreenearth.com"><img border="0" src="http://www.onegreenearth.com/images/OGE_member_badge_small.jpg" height="60" ></a>
+        <span class="pull-right">&nbsp;&nbsp;&nbsp;</span>
+        <a class="pull-right" href="https://www.le.ac.uk"><img border="0" src="/resources/assets/img/uni-logo.png" height="60"></a>
     </footer>
 </div>
 
