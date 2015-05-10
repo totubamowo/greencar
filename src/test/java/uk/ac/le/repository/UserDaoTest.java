@@ -40,7 +40,7 @@ public class UserDaoTest extends BaseDaoTest {
 
         userDao.save(user);
 
-        User savedUser = userDao.get("teerex_");
+        User savedUser = userDao.get("test");
 
         assertNotNull(savedUser);
     }

@@ -74,9 +74,13 @@ public class JourneyDaoTest extends BaseDaoTest {
 
         journeyDao.save(journey);
 
+        Journey journey_ = TestUtils.getAJourneyObject();
+
+        journeyDao.save(journey_);
+
         List<Journey> journeys = journeyDao.getAll(user);
 
-        assertEquals(1, journeys.size());
+        assertTrue(1 == journeys.size() && journeys.get(0).getUser() == user);
     }
 
     @Test
@@ -87,13 +91,18 @@ public class JourneyDaoTest extends BaseDaoTest {
 
         journeyDao.save(journey);
 
+        Journey journey_ = TestUtils.getAJourneyObject();
+        journey_.setFrequency(Journey.Frequency.OCCASIONAL);
+
+        journeyDao.save(journey_);
+
         List<Journey> journeys = journeyDao.getAll(Journey.Frequency.DAILY);
 
-        assertEquals(1, journeys.size());
+        assertTrue(1 == journeys.size()  && journeys.get(0).getFrequency() == Journey.Frequency.DAILY);
     }
 
     @Test
-    public void listJourneysForDriver() {
+    public void listRiderJourneys() {
         User user = TestUtils.getAUserObject();
         userDao.save(user);
 
@@ -116,26 +125,23 @@ public class JourneyDaoTest extends BaseDaoTest {
     }
 
     @Test
-    public void listJourneysForRider() {
+    public void listRiderJourneys_() {
         User user = TestUtils.getAUserObject();
         userDao.save(user);
 
         Journey journey = TestUtils.getAJourneyObject();
-        journey.setDriver(false);
+        journey.setDriver(true);
         journey.setUser(user);
         journeyDao.save(journey);
 
-        User user_ = TestUtils.getAnotherUserObject();
-        userDao.save(user_);
-
         Journey journey_ = TestUtils.getAJourneyObject();
-        journey_.setDriver(true);
-        journey_.setUser(user_);
+        journey_.setDriver(false);
+        journey_.setUser(user);
         journeyDao.save(journey_);
 
         List<Journey> journeys = journeyDao.getAll(journey);
 
-        assertEquals(1, journeys.size());
+        assertEquals(null, journeys);
     }
 
 
