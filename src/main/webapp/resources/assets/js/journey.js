@@ -16,71 +16,67 @@ $.fn.serializeObject = function () {
 };
 
 // config options
-var url = 'http://127.0.0.1:8080/geoserver/greencar/wms';
+var routingHostUrl = 'http://127.0.0.1:8080/';
+var geoServerPath = 'geoserver/greencar/wms';
 var clientSRID = 'EPSG:3857';
 var serverSRID = 'EPSG:4326';
 var serverType = 'geoserver';
 var lei = [-126874.25213773156, 6916497.341662836];
 var zoom = 15;
 
-try {
-    // Create an openLayer map object
-    var map = new ol.Map({
-        // Map control set up
-        /*controls: ol.control.defaults().extend([new app.LayersControl({groups: {background: {title: 'Base Layers',exclusive: true},'default': {title: 'Overlays'}}})]),*/
+// Create an openLayer map object
+var map = new ol.Map({
+    // Map control set up
+    /*controls: ol.control.defaults().extend([new app.LayersControl({groups: {background: {title: 'Base Layers',exclusive: true},'default': {title: 'Overlays'}}})]),*/
 
-        // render the map in the 'map' div
-        target: document.getElementById('map'),
+    // render the map in the 'map' div
+    target: document.getElementById('map'),
 
-        // Use the Canvas renderer
-        renderer: 'canvas',
+    // Use the Canvas renderer
+    renderer: 'canvas',
 
-        // Initialize map layers
-        layers: [
-            // MapQuest streets
-            new ol.layer.Tile({
-                title: 'Street Map',
-                group: 'background',
-                source: new ol.source.MapQuest({layer: 'osm'})
-            }),
-            // MapQuest imagery
-            new ol.layer.Tile({
-                title: 'Aerial Imagery',
-                group: 'background',
-                visible: false,
-                source: new ol.source.MapQuest({layer: 'sat'})
-            }),
-            // MapQuest hybrid (uses a layer group)
-            new ol.layer.Group({
-                title: 'Imagery with Streets',
-                group: 'background',
-                visible: false,
-                layers: [
-                    new ol.layer.Tile({
-                        source: new ol.source.MapQuest({layer: 'sat'})
-                    }),
-                    new ol.layer.Tile({
-                        source: new ol.source.MapQuest({layer: 'hyb'})
-                    })
-                ]
-            })
-        ],
-        // Initialize map center and zoom
-        view: new ol.View({
-            center: lei,
-            zoom: zoom
+    // Initialize map layers
+    layers: [
+        // MapQuest streets
+        new ol.layer.Tile({
+            title: 'Street Map',
+            group: 'background',
+            source: new ol.source.MapQuest({layer: 'osm'})
+        }),
+        // MapQuest imagery
+        new ol.layer.Tile({
+            title: 'Aerial Imagery',
+            group: 'background',
+            visible: false,
+            source: new ol.source.MapQuest({layer: 'sat'})
+        }),
+        // MapQuest hybrid (uses a layer group)
+        new ol.layer.Group({
+            title: 'Imagery with Streets',
+            group: 'background',
+            visible: false,
+            layers: [
+                new ol.layer.Tile({
+                    source: new ol.source.MapQuest({layer: 'sat'})
+                }),
+                new ol.layer.Tile({
+                    source: new ol.source.MapQuest({layer: 'hyb'})
+                })
+            ]
         })
-    });
-}
-catch (err) {
-    alert(err + '. Please contact developer');
-}
+    ],
+    // Initialize map center and zoom
+    view: new ol.View({
+        center: lei,
+        zoom: zoom
+    })
+});
 
 // Set up roads layer
 var roads = new ol.layer.Tile({
     title: 'Roads',
     source: new ol.source.TileWMS({
-        url: url,
+        url: routingHostUrl + geoServerPath,
         params: {'LAYERS': 'greencar:roads'},
         serverType: serverType
     }),
@@ -167,7 +163,7 @@ var computeRoute = function (sourcePoint, sinkPoint) {
     //  ol.source object holds the WMS GET parameters that will be sent to GeoServer.
     route = new ol.layer.Image({
         source: new ol.source.ImageWMS({
-            url: url,
+            url: routingHostUrl + geoServerPath,
             params: params,
             serverType: serverType
         })
@@ -182,7 +178,7 @@ var computeRoute = function (sourcePoint, sinkPoint) {
     var rows = '';
 
     //get driving directions
-    $.getJSON('/route/shortest-path?sourceLon=' + sourceCoord[0] + '&sourceLat=' + sourceCoord[1] + '&sinkLon=' + sinkCoord[0] + '&sinkLat=' + sinkCoord[1],
+    $.getJSON(routingHostUrl + 'dd/route/shortest-path?sourceLon=' + sourceCoord[0] + '&sourceLat=' + sourceCoord[1] + '&sinkLon=' + sinkCoord[0] + '&sinkLat=' + sinkCoord[1],
         function (data) {
             if (null !== data) {
                 data.forEach(function (entry) {
