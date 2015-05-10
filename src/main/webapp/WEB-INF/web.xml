@@ -57,6 +57,17 @@
         <servlet-name>appServlet</servlet-name>
     </filter-mapping>
 
+    <!-- o enable CORS -->
+    <filter>
+        <filter-name>cors</filter-name>
+        <filter-class>uk.ac.le.utils.SimpleCORSFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>cors</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <error-page>
         <error-code>404</error-code>
         <location>/WEB-INF/views/404.jsp</location>
