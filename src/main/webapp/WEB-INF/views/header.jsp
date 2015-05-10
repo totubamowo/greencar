@@ -67,7 +67,19 @@
                 </c:if>
 
                 <li><a href="/#contact">Contact</a></li>
+
+                <c:if test="${fn:length(loggedInUserName) < 1}">
+                    <li><a href="login" class="btn">Login &raquo;</a></li>
+                </c:if>
             </ul>
         </div>
     </div>
+</div>
+<div class="container">
+    <c:if test="${fn:contains(header.referer,'login')}">
+        <div class="alert alert-dismissable" style="background-color: #eeeeee; margin-top: 20px; font-size: larger; font-weight: bolder">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                Login successful!
+        </div>
+    </c:if>
 </div>

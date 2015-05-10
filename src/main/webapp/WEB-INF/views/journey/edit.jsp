@@ -18,7 +18,7 @@
                onclick="return confirm('Are you sure you want to leave this page?\nUnsaved changes will be lost?');">
                 <i class="fa fa-eye"></i>&nbsp;view journey</a>
         </c:if>
-        <a href="<%=request.getHeader("referer")%>" class="btn pull-right"><i
+        <a href="${header.referer}" class="btn pull-right"><i
                 class="fa fa-arrow-left"></i>&nbsp;&nbsp;back</a>
 
         <div class="clearfix"></div>

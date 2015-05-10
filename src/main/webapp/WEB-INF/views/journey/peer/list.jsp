@@ -11,7 +11,7 @@
         <a href="/journey/view?id=${journey.id}" class="btn" title="view journey on map">
             <i class="fa fa-automobile"></i>&nbsp;${journey.source}
             &nbsp;&nbsp;<i class="fa fa-arrow-right"></i>&nbsp;&nbsp;${journey.sink}</a>
-        <a href="<%=request.getHeader("referer")%>" class="btn pull-right"><i
+        <a href="${header.referer}" class="btn pull-right"><i
                 class="fa fa-arrow-left"></i>&nbsp;&nbsp;back</a>
     </h4>
 

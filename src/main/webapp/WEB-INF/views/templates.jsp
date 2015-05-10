@@ -11,9 +11,6 @@
             <p>It suggest suitable journey peers to the you. However, you ultimately decide to peer for car sharing.</p>
             <br>
 
-            <p>Login or register add journeys to the system</p>
-
-            <p><a href="login" class="btn btn-primary btn-lg">Login or Register &raquo;</a></p>
         </div>
     </div>
 
