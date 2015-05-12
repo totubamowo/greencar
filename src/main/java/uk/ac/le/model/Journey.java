@@ -3,7 +3,8 @@ package uk.ac.le.model;
 import javax.persistence.*;
 import java.sql.Time;
 
-@Entity(name = "journeys")
+@Entity
+@Table(name = "journeys")
 public class Journey extends BaseModel {
 
     @Column

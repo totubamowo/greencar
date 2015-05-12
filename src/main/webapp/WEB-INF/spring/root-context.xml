@@ -5,7 +5,8 @@
 
     <!-- Root Context: defines shared resources visible to all other web components -->
 
-    <import resource="db.xml" />
+    <!-- change resource to "db-mysql.xml" for a mysql db and make necessary changes in BaseModel.java-->
+    <import resource="db-mysql.xml" />
 
     <import resource="appServlet/security-context.xml" />
 

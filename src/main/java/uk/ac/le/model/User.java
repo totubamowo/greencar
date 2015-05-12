@@ -5,11 +5,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-@Entity(name = "users")
+@Entity
+@Table(name = "users")
 public class User extends BaseModel {
 
     private static ShaPasswordEncoder sha = new ShaPasswordEncoder();
