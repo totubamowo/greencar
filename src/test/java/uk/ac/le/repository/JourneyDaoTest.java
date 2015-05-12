@@ -141,7 +141,7 @@ public class JourneyDaoTest extends BaseDaoTest {
 
         List<Journey> journeys = journeyDao.getAll(journey);
 
-        assertEquals(null, journeys);
+        assertEquals(0, journeys.size());
     }
 
 
