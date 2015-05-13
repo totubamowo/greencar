@@ -12,7 +12,7 @@ import java.util.Date;
 public abstract class BaseModel implements Serializable, Comparable<BaseModel> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)// change to GenerationType.IDENTITY for mysql database
+    @GeneratedValue(strategy = GenerationType.IDENTITY)// change to GenerationType.AUTO for PostgreSQL database
     private Long id;
 
     @Column

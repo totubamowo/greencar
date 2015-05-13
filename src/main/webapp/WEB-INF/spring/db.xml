@@ -17,12 +17,12 @@
     <context:spring-configured/>
 
     <bean class="java.net.URI" id="dbUrl">
-        <constructor-arg value="#{systemEnvironment['DATABASE_URL']}"/>
+        <constructor-arg value="mysql://[USERNAME]:[PASSWORD]@[host]:[PORT]/[DATABASE_NAME]"/>
     </bean>
 
     <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
-        <property name="driverClassName" value="org.postgresql.Driver"/>
-        <property name="url" value="#{ 'jdbc:postgresql://' + @dbUrl.getHost() + ':' + @dbUrl.getPort() + @dbUrl.getPath() }"/>
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="#{ 'jdbc:mysql://' + @dbUrl.getHost() + ':' + @dbUrl.getPort() + @dbUrl.getPath() }"/>
         <property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] }"/>
         <property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] }"/>
         <property name="testOnBorrow" value="true"/>
