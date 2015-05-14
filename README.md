@@ -5,7 +5,7 @@ The application is based on Spring, Hibernate, PostgreSQL, Maven and Jetty
 Built on Back-end frameworks including:
 * Spring MVC (3.2.4.RELEASE)
 * Hibernate (4.2.5.Final)
-* PostgreSQL
+* PostgreSQL/MySQL
 * Maven
 * Jetty (6.1.25)
 
@@ -19,15 +19,20 @@ Front-end frameworks including:
 ```sh
 git clone https://bitbucket.org/teerexinc/greencar.git
 ```
-* Download and install PostgreSQL
+* Download and install PostgreSQL/MySQL
 
-* Download a client to connect to your local PostgreSQL server. A good one is http://www.pgadmin.org/
+* Download a client to connect to your local PostgreSQL/MySQL server.
 
-* Create a database called "greencar" on port 5433 to avoid port conflicts
+* Create a database called "greencar"
 
-* Change dbURL bean in db.xml using the credential of the database created.
+* for a MySQL database, change dbURL bean in db.xml using the credential of the database created (create tables manually with create_tables.sql).
 ```
-value="postgres://[USERNAME]:[PASSWORD]@localhost:5433/greencar"
+value="mysql://[USERNAME]:[PASSWORD]@[HOST]:[PORT]/[DATABASE_NAME]"
+```
+
+* For a PostgreSQL database.Change dbURL bean in db-psql.xml using the credential of the database created (see context.xml to make some changes; tables created automatically).
+```
+value="postgres://[USERNAME]:[PASSWORD]@[HOST]:[PORT]/[DATABASE_NAME]"
 ```
 
 * Go to project directory, run
@@ -61,7 +66,7 @@ git push heroku master
 heroku open
 ```
 
-## This code base of this project is based on the following boiler plate code references.
+## The code base of this project is based on the following boiler plate code references.
 * https://github.com/ParallelBrains/Spring-Hibernate-PostgreSQL-Maven-Jetty
 * https://github.com/nicolatassini/Heroku-J2EE-Spring-MVC---Hibernate---PostgreSQL----Maven---Jetty
 * https://github.com/heroku/devcenter-spring-mvc-hibernate
