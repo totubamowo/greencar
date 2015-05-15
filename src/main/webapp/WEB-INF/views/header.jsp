@@ -76,7 +76,7 @@
     </div>
 </div>
 <div class="container">
-    <c:if test="${fn:contains(header.referer,'login')} && ${fn:length(loggedInUserName) > 1}">
+    <c:if test="${fn:contains(header.referer,'login') && fn:length(loggedInUserName) > 1}">
         <div class="alert alert-dismissable" style="background-color: #eeeeee; margin-top: 20px; font-size: larger; font-weight: bolder">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                 Login successful!
